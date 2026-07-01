@@ -1,7 +1,7 @@
 ---
 name: desktop-design-read
 description: 在编写或修改桌面 UI 前产出可复用的桌面设计判断。
-version: 0.2.0
+version: 0.3.0
 ---
 
 # Desktop Design Read
@@ -29,15 +29,17 @@ version: 0.2.0
 必须覆盖以下字段。信息不足时做保守推断，并标注 `assumption`：
 
 - `platform`: macOS、Windows 或 cross-platform
+- `platform_depth`: macOS-first、Windows-first 或 cross-platform desktop。macOS-first 可启用更深的 Liquid Glass、SwiftUI scene/window、AppKit 边界和原生组件判断；Windows-first 必须保留 Windows 原生 title bar、command bar、context menu、快捷键、系统主题和 Fluent / Mica / Acrylic 预期。
 - `app_archetype`: 工具、编辑器、工作台、启动器、控制台、数据库客户端、创作工具、AI workspace 等
 - `user_role`: 普通用户、专业用户、开发者、创作者、研究人员、运营人员等
 - `session_context`: 短任务、长时间工作、频繁切换、后台监控、批量处理、深度创作
 - `density`: calm、standard、dense、control-room
 - `primary_interaction`: 鼠标优先、键盘优先、command-first、drag-and-drop、multi-window、multi-pane
+- `evidence_target`: screenshot、runtime、code、DESIGN.md、reference、art direction、user description 或 missing
 - `main_risks`: 网页壳、dashboard 化、过度留白、平台感缺失、状态缺失、真实数据下失效
 - `design_thesis`: 这个界面应该给人的一句话感受
 - `anti_pattern`: 明确不要像什么
-- `next_routes`: audit、redesign、native feel、layout、typography、motion、brand、DESIGN.md 中的后续路由
+- `next_routes`: audit、redesign、native feel、layout、typography、motion、brand、QA、DESIGN.md 中的后续路由
 
 ## Brief Gate
 
@@ -57,6 +59,7 @@ Hard boundary：
 ```text
 Desktop Read:
 - platform: <macOS / Windows / cross-platform>
+- platform_depth: <macOS-first / Windows-first / cross-platform desktop>
 - app_archetype: <type>
 - user_role: <role>
 - session_context: <context>
@@ -87,6 +90,7 @@ Desktop Read:
 交付前确认：
 
 - 是否明确平台策略，而不是把 macOS 和 Windows 压成通用 Web UI
+- 是否明确平台深度；macOS 深度规则没有自动套用到 Windows，Windows 覆盖没有被降级
 - 是否明确桌面应用类型和真实用户工作流
 - 是否选择了合理密度
 - 是否指出网页壳、dashboard 化、平台感缺失、状态缺失等主要风险

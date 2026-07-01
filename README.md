@@ -18,6 +18,7 @@ The suite helps the Agent reason about:
 - visual or evidence targets such as screenshots, running windows, code paths, `DESIGN.md`, references, or selected art direction
 - app type and workflow context
 - macOS, Windows, or cross-platform expectations
+- macOS Native Depth: Liquid Glass, SwiftUI scene/window roles, native toolbar/sidebar/inspector patterns, and narrow AppKit escape hatches
 - native-feeling windows, sidebars, toolbars, inspectors, menus, dialogs, popovers, command palettes, tables, and workbench layouts
 - information density and long-session comfort
 - typography hierarchy and spacing rhythm
@@ -32,14 +33,14 @@ The intended outcome is not simply “correct UI”. The intended outcome is des
 - `desktop-taste`: entry Skill for desktop UI/UX task recognition, boundary checks, and route selection.
 - `desktop-design-read`: pre-implementation desktop brief gate covering platform, app type, user, session context, density, interaction model, evidence target, risks, and next routes.
 - `desktop-art-direction`: produces 2-3 concrete desktop art directions with thesis, fit, anti-patterns, and signature moments.
-- `desktop-native-feel`: checks whether macOS or Windows UI feels like real desktop software instead of a web shell.
-- `desktop-layout-composition`: chooses desktop window layouts, zones, and component tradeoffs for real workflows and data.
+- `desktop-native-feel`: checks whether macOS or Windows UI feels like real desktop software instead of a web shell, including macOS Liquid Glass and AppKit boundary guidance when relevant.
+- `desktop-layout-composition`: chooses desktop window layouts, zones, scene/window roles, and component tradeoffs for real workflows and data.
 - `desktop-typography-density`: calibrates type hierarchy, spacing, text roles, tables, lists, and density levels.
 - `desktop-motion-interaction`: designs and reviews desktop motion, interaction states, feedback, undo/redo, and reduced-motion behavior.
 - `desktop-brand-system`: keeps product expression inside useful desktop UI rather than turning the app into marketing surface.
 - `desktop-audit`: audits existing desktop UI and produces diagnosis, preservation guidance, fixes, and implementation checks.
 - `desktop-redesign`: turns audit findings into implementable layout, component, state, interaction, and visual strategy.
-- `desktop-qa`: checks implemented desktop UI before handoff against Desktop Read, evidence targets, native feel, layout, density, states, keyboard path, real data, and themes.
+- `desktop-qa`: checks implemented desktop UI before handoff against Desktop Read, evidence targets, native feel, layout, density, states, keyboard path, real data, themes, and macOS Native Depth when applicable.
 - `desktop-design-md`: creates or updates a desktop-focused `DESIGN.md` for user projects.
 
 Reusable templates live in `templates/` for desktop `DESIGN.md`, Desktop Read, critique, and anti-slop checks.
@@ -92,13 +93,17 @@ must include `name`, `description`, and `version`.
 
 Desktop Taste Skills targets macOS and Windows.
 
+The plugin is allowed to be macOS-strong without becoming macOS-only. macOS work should go deeper when the task calls for it: Liquid Glass is a first-class modern macOS material strategy, SwiftUI scene/window roles should be explicit, and AppKit should stay a narrow escape hatch for real platform gaps. These macOS rules do not automatically apply to Windows.
+
 The Agent should:
 
 - state when a decision is macOS-specific, Windows-specific, or cross-platform
+- state when a task is macOS-first, Windows-first, or a cross-platform desktop compromise
 - preserve platform expectations when they improve usability
 - allow tasteful cross-platform compromise when the product requires it
 - avoid flattening macOS and Windows into a generic web-like UI
 - explain the principle behind native-feeling patterns instead of copying screenshots blindly
+- keep Windows guidance active through Windows title bars, command bars, context menus, keyboard conventions, Mica/Acrylic or system theme behavior, and Fluent expectations when the target is Windows
 
 ## Versioning
 

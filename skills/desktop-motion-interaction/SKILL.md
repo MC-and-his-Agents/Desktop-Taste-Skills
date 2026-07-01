@@ -1,7 +1,7 @@
 ---
 name: desktop-motion-interaction
 description: 设计和审查 macOS / Windows 桌面应用的动效、状态反馈与交互手感。
-version: 0.1.0
+version: 0.2.0
 ---
 
 # Desktop Motion & Interaction
@@ -16,6 +16,7 @@ version: 0.1.0
 - 设计 command palette reveal、panel reveal、inspector transition、popover 或 drawer 的出现 / 消失
 - 改进 drag-and-drop、resize splitter、列表选择、键盘导航或鼠标按压手感
 - 处理 loading、task completion、error recovery、undo / redo 的反馈方式
+- 校准 macOS command/menu/focus、source-list selection、Inspector/panel reveal、popover/sheet 焦点返回
 - 让桌面应用更快、更稳、更有响应感，避免像网页动画模板
 - 适配 `prefers-reduced-motion`、系统 reduced motion、high contrast 或键盘用户
 
@@ -67,6 +68,9 @@ version: 0.1.0
 - command palette reveal 应轻、快、居中或贴近命令入口；打开后焦点立即进入输入框，关闭后回到触发位置。
 - panel reveal 要表达空间关系：侧栏从侧边进入，底部日志从底部展开，popover 从触发控件附近出现。
 - inspector transition 应跟随 selected 对象变化；内容可淡入或滑入，但不能让用户丢失当前对象身份。
+- macOS source-list selection、toolbar command、menu command 和 command palette 对同一对象的执行反馈应一致；焦点、选中和执行中状态不能混用。
+- Inspector / panel reveal 必须保留对象关系：打开来源、当前选择、关闭方式和焦点返回位置都要明确。
+- popover 和 sheet 遵循平台关闭路径：`Esc`、失焦、取消按钮或系统关闭行为；不要用网页式全屏遮罩替代。
 - 弹出层关闭优先响应 `Esc`、失焦和平台关闭行为；不要用网页式全屏遮罩替代桌面 popover、panel 或 sheet。
 
 ### 拖拽与尺寸调整
@@ -98,6 +102,8 @@ version: 0.1.0
 - 为了“高级感”给所有页面加 route fade、scroll reveal、视差、弹跳或渐变动效
 - hover、focus、selected、active 使用同一种背景色，导致状态语义混乱
 - selected 只在 hover 时可见，窗口失焦或键盘导航时丢失选择
+- macOS sidebar selection、focus ring 和 active command 共用一种高亮，导致用户分不清当前对象、键盘位置和执行状态
+- Inspector 或 panel reveal 后焦点停在触发按钮，键盘用户无法进入新区域或关闭后无法回到原对象
 - command palette 像网页 modal 一样慢慢浮现，打开后焦点没有进入输入框
 - panel / inspector 从任意方向出现，用户无法理解它和当前对象的关系
 - drag-and-drop 没有合法目标、放置预览、失败反馈或撤销路径
@@ -114,6 +120,7 @@ version: 0.1.0
 - [ ] 已引用 `Desktop Read` 的平台、密度、主要交互方式和风险
 - [ ] hover、focus、selected、active、disabled 的语义可区分
 - [ ] command palette reveal 的焦点进入、关闭和焦点恢复正确
+- [ ] macOS-first 时 menu、toolbar、command palette、context menu 的命令反馈和焦点返回一致
 - [ ] panel reveal 与 inspector transition 表达了空间来源和对象关系
 - [ ] drag-and-drop 覆盖 start、over、valid / invalid target、preview、result 和 undo
 - [ ] resize splitter 有可命中区域、hover / active、尺寸约束和退化策略

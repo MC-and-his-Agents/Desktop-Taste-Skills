@@ -1,7 +1,7 @@
 ---
 name: desktop-layout-composition
 description: 判断 macOS 和 Windows 桌面应用的布局类型、窗口构图和关键区域使用边界。
-version: 0.1.0
+version: 0.2.0
 ---
 
 # Desktop Layout Composition
@@ -33,6 +33,7 @@ version: 0.1.0
 优先引用 `desktop-design-read` 的结果。没有 Desktop Read 时，先保守补齐这些判断再继续：
 
 - `platform`: macOS、Windows 或 cross-platform
+- `platform_depth`: macOS-first、Windows-first 或 cross-platform desktop
 - `app_archetype`: 工具、编辑器、工作台、创作工具、数据工具、监控台、设置窗口等
 - `session_context`: 短任务、长时间工作、频繁切换、后台监控、批量处理、深度创作
 - `density`: calm、standard、dense、control-room
@@ -48,6 +49,20 @@ version: 0.1.0
 3. 选择布局类型：先选最少区域能承载工作流的类型，再决定是否需要 split、Inspector、bottom panel 或 tabs。
 4. 做真实数据压力测试：用 0、1、10、100+ 条记录，长名称，多列，多状态，多选和错误状态检查布局是否仍成立。
 5. 检查桌面手感：窗口缩放、键盘焦点、鼠标路径、选择状态、滚动区域、可调整分隔条和平台习惯是否清楚。
+
+## macOS Scene / Window 判断
+
+当 `platform_depth` 是 macOS-first 时，先判断窗口角色，再决定布局组件：
+
+| macOS scene / window | 何时使用 | 布局影响 |
+| --- | --- | --- |
+| `WindowGroup` / 主窗口 | 常规主应用窗口、可多开或需要启动时出现 | 保留稳定 title / toolbar、主导航、主工作区和状态反馈 |
+| `Window` / 辅助窗口 | About、support、utility、单例工具窗口 | 尺寸、恢复、minimize 和关闭行为应匹配短任务 |
+| `Settings` | 偏好、账户、权限、连接配置 | 用分类导航 + 表单，避免塞回主工作区 |
+| `MenuBarExtra` / tray popover | 即时状态、快捷开关、最近项、短流程 | 内容短、可扫，长内容进入完整窗口 |
+| `DocumentGroup` / document window | 独立文档、项目、查询或创作对象 | 文档标题、dirty state、保存、恢复和多窗口策略必须清楚 |
+
+macOS-first 布局优先使用系统 sidebar、toolbar、Inspector、popover、sheet 和 split view。只有需要非常规尺寸控制或系统 API 缺口时，才把实现边界交给 AppKit；不要为了卡片式视觉重做原生 source list。
 
 ## 布局类型判断
 
@@ -83,12 +98,20 @@ version: 0.1.0
 | tree | 文件、目录、分组、依赖或嵌套对象有真实层级 | 扁平集合被强行分层 |
 | status bar | 同步、连接、选中数量、光标位置、后台任务、权限或环境状态会影响操作 | 静态信息或装饰性口号 |
 
+macOS-first 组件规则：
+
+- toolbar：放高频命令、视图切换、搜索、过滤和运行状态；同一命令在 menu、toolbar、context menu、command palette 中保持名称、快捷键和禁用条件一致。
+- sidebar：优先 source-list 形态，行内只放必要图标、标题和一条辅助信息；richer metadata 进入 detail 或 Inspector。
+- Inspector：依附当前选择，放属性、诊断、样式、权限和上下文操作；无选择时给短空态，不承担主任务。
+- commands / menus：高频命令可以进入 toolbar，但完整命令路径应保留在菜单或 command palette；不要把所有命令都堆进 toolbar。
+
 ## 最佳实践
 
 - 让中心区域承载主工作，不要让导航、卡片或装饰占据最大空间。
 - 先设计选择模型：单选、多选、无选择、跨窗选择和空状态会决定 Inspector、toolbar 和 status bar。
 - 桌面应用可以高密度，但要有清晰分组、对齐、滚动边界和可调整分隔条。
 - 长时间工作区优先保留用户位置：sidebar 状态、打开的 tabs、面板展开状态和当前选择。
+- macOS-first 时先让 toolbar、sidebar、Inspector 和 sheet 使用系统结构与材料；自定义 surface 只用于内容区或产品特定区域。
 - settings 使用分类导航 + 右侧表单；危险操作、权限和账号状态要有明确区域，不混进普通偏好。
 - tray popover 保持轻量：状态、快捷开关、最近项和一个进入完整窗口的入口通常足够。
 - creative canvas 让画布优先，工具、图层、Inspector 围绕选择对象服务，不抢主工作区。
@@ -99,6 +122,9 @@ version: 0.1.0
 - 默认把桌面应用做成 card grid、dashboard 或网页首页。
 - 用大 hero、营销文案、超大留白或浮动 section 代替工作区。
 - 把 sidebar 当装饰导航，或者把 Inspector 当第二个主页面。
+- macOS source list 被做成大圆角卡片墙，导致选择、密度和系统材料都失效。
+- toolbar、menu、context menu 和 command palette 对同一命令使用不同名称、快捷键或禁用条件。
+- Inspector 不跟随当前选择，或者无选择时显示旧对象属性。
 - 所有操作都堆进 toolbar，导致命令没有优先级。
 - bottom panel 变成杂物箱，无法解释它和当前对象的关系。
 - tabs、sidebar、breadcrumb 同时表达同一层级。
@@ -126,6 +152,8 @@ Desktop Layout Composition:
 - applies: yes/no
 - source_read: <Desktop Read 引用或 assumptions>
 - chosen_layout: <utility window/sidebar app/two-pane/three-pane/inspector/command-first/editor workbench/creative canvas/data cockpit/monitoring console/settings/tray popover/tabbed workspace/multi-document>
+- platform_depth: <macOS-first / Windows-first / cross-platform desktop>
+- macos_scene_window: <WindowGroup/Window/Settings/MenuBarExtra/DocumentGroup/not applicable + reason>
 - rejected_layouts:
   - <layout>: <为什么不用>
 - zone_map:

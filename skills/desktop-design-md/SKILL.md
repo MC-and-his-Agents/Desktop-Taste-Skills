@@ -1,7 +1,7 @@
 ---
 name: desktop-design-md
 description: 生成或更新 macOS / Windows 桌面应用项目中的 DESIGN.md，记录可延续的桌面 UI/UX 设计契约。
-version: 0.1.0
+version: 0.2.0
 ---
 
 # Desktop DESIGN.md
@@ -37,6 +37,7 @@ version: 0.1.0
 优先引用已有 `Desktop Read`。没有 Desktop Read 时，先运行 `desktop-design-read`，至少得到：
 
 - `platform`: macOS、Windows 或 cross-platform
+- `platform_depth`: macOS-first、Windows-first 或 cross-platform desktop
 - `app_archetype` 与真实用户工作流
 - `user_role`、`session_context`、`density`、`primary_interaction`
 - `design_thesis`、`anti_pattern`、`main_risks`
@@ -49,8 +50,10 @@ version: 0.1.0
 2. 每条规则都要能指导后续 Agent 做取舍。避免只写“现代、简洁、高级、专业”等不可执行形容词。
 3. 规则必须落到桌面对象：窗口、标题栏、工具栏、侧边栏、split view、Inspector、表格、列表、命令面板、状态栏、popover、dialog、焦点和选择状态。
 4. macOS 与 Windows 的差异要写清。cross-platform 可以共享信息架构，但不能把平台习惯压成通用 Web UI。
-5. 设计密度服务真实数据。用空态、1 条、10 条、100+ 条、长名称、多选、错误、加载和窄窗口检查文档是否可实现。
-6. 只记录当前项目需要的规则。不要写未来也许会用到的组件库、主题引擎或完整设计系统。
+5. macOS-first 可以更深入记录 Liquid Glass、SwiftUI scene/window、toolbar/sidebar/Inspector 和 AppKit narrow bridge；这些规则不能默认套用到 Windows。
+6. Windows-first 必须保留 title bar、command bar、context menu、快捷键、系统主题、Mica / Acrylic 或 Fluent 预期，不被 macOS 材料语言覆盖。
+7. 设计密度服务真实数据。用空态、1 条、10 条、100+ 条、长名称、多选、错误、加载和窄窗口检查文档是否可实现。
+8. 只记录当前项目需要的规则。不要写未来也许会用到的组件库、主题引擎或完整设计系统。
 
 ## DESIGN.md 结构
 
@@ -90,17 +93,21 @@ version: 0.1.0
 记录：
 
 - 目标平台：macOS、Windows 或 cross-platform
+- 平台深度：macOS-first、Windows-first 或 cross-platform desktop
 - 平台优先级和折中策略
 - 菜单、快捷键、窗口控制、系统字体、accent color、主题、高对比和 reduced motion 策略
 - 哪些行为必须跟随平台，哪些区域允许产品语言
+- macOS-first 时记录 Liquid Glass 使用位置、SwiftUI scene/window 角色、AppKit bridge owner 和回退条件
 
 ### 3. 窗口与表面系统
 
 记录：
 
 - 主窗口、辅助窗口、popover、dialog、sheet、Inspector、bottom panel、status bar 的角色
+- macOS-first 时记录 WindowGroup、Window、Settings、MenuBarExtra 或 DocumentGroup，及 resize、restoration、placement、多窗口和 settings entry 策略
 - titlebar、toolbar、sidebar、split view 和主工作区如何分层
 - surface 层级、边框、材质、阴影、背景和滚动区域边界
+- Liquid Glass、Mica / Acrylic 或自定义材质只承担层级和平台感；正文、表格、代码、错误和表单必须保持可读
 - 空态、加载、错误、离线、权限不足和长任务状态放在哪里
 
 ### 4. 布局语法
@@ -144,6 +151,7 @@ version: 0.1.0
 记录当前项目真实需要的组件规则，例如：
 
 - titlebar、toolbar、sidebar、split view、Inspector、command palette
+- macOS toolbar/sidebar/Inspector 的系统语义、命令一致性、source-list 密度和当前选择绑定
 - table、list、tree、tabs、segmented control、search、filter、empty state
 - popover、dialog、sheet、toast 或 inline notification
 - focus、hover、selected、active、disabled、loading、error、success 状态
@@ -193,6 +201,7 @@ version: 0.1.0
 
 - 开始实现前要读取 `DESIGN.md` 和 Desktop Read
 - 新增 UI 时先说明它继承哪些 thesis、platform、layout、density、component 和 motion 规则
+- macOS-first 新增 UI 时先说明 scene/window 角色、Liquid Glass 是否适用、AppKit 是否需要以及状态 owner 在哪里
 - 变更设计规则时更新 `DESIGN.md`，不要只改代码
 - 当实现需要偏离设计主张时，记录偏离原因、影响范围和回退条件
 - 不要默认生成 Web landing 内容；桌面应用第一屏应是可工作的窗口、工作区或任务入口
@@ -208,6 +217,7 @@ Desktop DESIGN.md:
 - target_file: <用户项目中的 DESIGN.md 路径>
 - action: <create/update>
 - platform: <macOS / Windows / cross-platform>
+- platform_depth: <macOS-first / Windows-first / cross-platform desktop>
 - thesis: <一句话设计主张>
 - out_of_scope:
   - <Web landing / Mobile / marketing / engineering 等不处理范围>

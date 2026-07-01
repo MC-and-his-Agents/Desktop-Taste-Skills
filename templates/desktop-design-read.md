@@ -15,6 +15,7 @@
 ```text
 Desktop Read:
 - platform: <macOS / Windows / cross-platform>
+- platform_depth: <macOS-first / Windows-first / cross-platform desktop>
 - app_archetype: <tool / editor / workbench / launcher / console / database client / creative tool / AI workspace / settings / tray popover>
 - user_role: <普通用户 / 专业用户 / 开发者 / 创作者 / 研究人员 / 运营人员等>
 - session_context: <短任务 / 长时间工作 / 频繁切换 / 后台监控 / 批量处理 / 深度创作>
@@ -26,7 +27,7 @@ Desktop Read:
 - main_risks:
   - <web shell / dashboard 化 / 过度留白 / 平台感缺失 / 状态缺失 / 真实数据下失效>
 - next_routes:
-  - <audit / redesign / native feel / layout / typography / motion / brand / DESIGN.md>
+  - <audit / redesign / native feel / layout / typography / motion / brand / QA / DESIGN.md>
 - assumptions:
   - <only if needed>
 ```
@@ -34,6 +35,7 @@ Desktop Read:
 ## 字段规则
 
 - `platform`: 必须说明 macOS、Windows 或 cross-platform；cross-platform 仍需保留平台差异。
+- `platform_depth`: 必须说明 macOS-first、Windows-first 或 cross-platform desktop。macOS-first 可以启用 Liquid Glass、SwiftUI scene/window 和 AppKit 边界判断；Windows-first 继续保留 Windows title bar、command bar、context menu、快捷键、Mica / Acrylic 或 Fluent 预期。
 - `app_archetype`: 写真实桌面应用类型，不写“页面”“网站”“dashboard”。
 - `session_context`: 决定密度、状态反馈和窗口持久化。
 - `density`: 不因为“高级感”默认 `calm`；开发者工具、数据工具、控制台常用 `dense` 或 `control-room`。
@@ -50,6 +52,7 @@ Desktop Read:
 ```text
 Desktop Read:
 - platform: cross-platform
+- platform_depth: cross-platform desktop
 - app_archetype: developer workbench
 - user_role: 开发者
 - session_context: 长时间工作、频繁切换、多面板排错
@@ -73,6 +76,6 @@ Desktop Read:
 ## 自检
 
 - 是否先判断桌面应用类型，而不是网页页面类型。
-- 是否明确密度、主要交互和平台策略。
+- 是否明确密度、主要交互和平台策略 / 平台深度。
 - 是否给后续 Skill 留下可执行输入。
 - 是否避免把输出写成 moodboard、研究摘录或泛泛设计原则。

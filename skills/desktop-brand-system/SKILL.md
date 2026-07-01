@@ -1,7 +1,7 @@
 ---
 name: desktop-brand-system
 description: 让 macOS 和 Windows 桌面应用形成克制、可用、可实现的产品品牌表达。
-version: 0.1.0
+version: 0.2.0
 ---
 
 # Desktop Brand System
@@ -51,6 +51,7 @@ version: 0.1.0
 - `loading state`：高频操作用低调进度、骨架或状态行；只在长任务中加入轻量品牌语气，不能打断工作流。
 - `signature interaction`：只选一个可重复感知的交互记忆点，例如 reveal、snap、focus handoff、completion pulse；必须短、可禁用、尊重 reduced motion。
 - `window material`：材质用于层级和平台感，不用于炫技。正文和数据区域保持可读，侧栏或标题栏才考虑轻材质。
+- `Liquid Glass`：macOS-first 时是现代系统材料的一等策略，优先用于系统 toolbar、sidebar、sheet、popover 和 utility surface；它不是品牌滤镜，也不是 Windows 默认风格。
 - `microcopy`：像产品里的同事，不像销售页。写具体对象、动作和结果，避免 “beautiful”、“powerful”、“next-gen”。
 - `semantic color rules`：成功、警告、错误、危险、信息必须与品牌色解耦；红色不能因为品牌主色而失去错误语义。
 - `product-specific motifs`：从产品对象、行业工具、文件形态、工作流节奏中提取 1 个 motif；它应影响图标、空状态或动效，不应变成满屏纹样。
@@ -61,6 +62,7 @@ version: 0.1.0
 - 用 specific reference：选择具体、可想象的参考物，避免只写“现代、干净、高级、可信”。
 - 让品牌表达贴近高频界面：侧栏当前项、命令面板、空状态、状态栏、完成反馈，比大封面更有效。
 - 品牌强度按区域递减：入口和空状态最强，主工作区中等，数据密集区最低。
+- Liquid Glass、vibrancy、Mica / Acrylic 或自定义材质必须服务平台层级；不要让材料替代产品信息架构或状态语义。
 - 保持平台控件的默认可识别性。按钮、菜单、表格、焦点、选择态不为了品牌而变成自绘谜题。
 - 对长期使用界面降低饱和度和对比噪音；品牌记忆点靠一致和稀缺，不靠面积。
 
@@ -69,6 +71,8 @@ version: 0.1.0
 - 品牌色到处乱用，导致选择态、状态色和装饰色无法区分。
 - 大渐变背景、发光光斑、海报式 hero section 占据第一屏。
 - 过度玻璃拟态让正文、列表、表格或 Inspector 变得难读。
+- fake Liquid Glass：手绘半透明层、重复 blur、发光边框或暗色 scrim 冒充系统材料，破坏 toolbar、sidebar、popover 或内容可读性。
+- macOS Liquid Glass 被当成跨平台品牌风格套到 Windows，覆盖 Mica / Acrylic、Fluent 或系统主题预期。
 - marketing copy 进入工具界面，例如把空状态写成广告标语。
 - 每个状态都插画化，导致专业工具像 onboarding demo。
 - 为了“有个性”重命名常规命令，使用户搜不到 `Open`、`Save`、`Export`、`Settings`。
@@ -88,6 +92,7 @@ version: 0.1.0
 - command palette 的命令仍然清楚、可搜索、符合平台习惯。
 - signature interaction 短、可重复、可降级，且不影响 reduced motion。
 - window material 不损害正文、表格、表单和代码/数据区域可读性。
+- macOS-first 时 Liquid Glass 使用位置明确；Windows-first 时没有套用 macOS 材料语言。
 - 没有大渐变、过度玻璃、hero section 化或营销文案进入工具界面。
 
 ## 输出格式
