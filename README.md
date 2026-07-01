@@ -31,6 +31,10 @@ Desktop Taste Skills is not a general engineering handbook, a mobile or web desi
 
 It may include lightweight implementation guardrails when they help produce feasible UI, but its center of gravity is desktop UI/UX taste.
 
+## Vision
+
+The target capability map is maintained in [VISION.md](VISION.md).
+
 ## Platform handling
 
 Desktop Taste Skills targets macOS and Windows.
@@ -42,6 +46,10 @@ The Agent should:
 - allow tasteful cross-platform compromise when the product requires it
 - avoid flattening macOS and Windows into a generic web-like UI
 - explain the principle behind native-feeling patterns instead of copying screenshots blindly
+
+## Versioning
+
+The plugin and each published Skill are versioned separately. See [VERSIONING.md](VERSIONING.md).
 
 ## Influences
 

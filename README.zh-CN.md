@@ -31,6 +31,10 @@ Desktop Taste Skills 不是通用工程手册，不是移动或 Web 设计工具
 
 它可以在有助于产出可实现 UI 时加入轻量实现护栏，但重心始终是桌面 UI/UX 品味。
 
+## 愿景
+
+目标状态能力清单维护在 [VISION.md](VISION.md)。
+
 ## 平台处理
 
 Desktop Taste Skills 面向 macOS 与 Windows。
@@ -42,6 +46,10 @@ Agent 应：
 - 当产品必须跨平台发布时，允许有品味的跨平台折中
 - 避免把 macOS 和 Windows 压平成通用的 Web 式 UI
 - 解释原生感模式背后的设计原则，而不是盲目复制截图
+
+## 版本管理
+
+插件和每个已发布 Skill 分别管理版本。见 [VERSIONING.md](VERSIONING.md)。
 
 ## 参考来源
 
