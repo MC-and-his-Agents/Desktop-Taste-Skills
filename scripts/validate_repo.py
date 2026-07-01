@@ -28,7 +28,20 @@ MANIFEST_PATH_KEYS = {
     "skillPaths",
     "skill_path",
     "skill_paths",
+    "template",
+    "templates",
+    "templatePath",
+    "templatePaths",
+    "template_path",
+    "template_paths",
 }
+SKILL_STRUCTURE_RULES = (
+    ("触发条件", ("触发条件", "trigger condition", "trigger conditions", "when to use")),
+    ("不适用场景", ("不适用场景", "不适用", "not applicable", "out of scope", "avoid when")),
+    ("方法/分析方法", ("分析方法", "判断维度", "固定入口流程", "路由表", "使用规则", "method", "analysis")),
+    ("反模式", ("反模式", "anti_pattern", "anti-pattern", "antipattern", "不要", "避免", "avoid_when", "risk")),
+    ("输出格式", ("输出格式", "output format", "output")),
+)
 
 
 def fail(message: str) -> None:
@@ -142,6 +155,21 @@ def validate_skills() -> None:
         if fields["name"] != skill_dir.name:
             fail(f"{skill_md.relative_to(ROOT)} name must match directory name")
         require_semver(fields["version"], f"{skill_md.relative_to(ROOT)} version")
+        validate_skill_structure(skill_md)
+
+
+def validate_skill_structure(path: Path) -> None:
+    text = path.read_text(encoding="utf-8").lower()
+    missing = [
+        label
+        for label, markers in SKILL_STRUCTURE_RULES
+        if not any(marker.lower() in text for marker in markers)
+    ]
+    if missing:
+        fail(
+            f"{path.relative_to(ROOT)} missing Skill content structure: "
+            f"{', '.join(missing)}"
+        )
 
 
 def main() -> None:
