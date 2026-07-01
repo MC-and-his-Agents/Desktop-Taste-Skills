@@ -25,6 +25,13 @@ Desktop Taste Skills 是一个 Codex 插件，包含多项可移植的桌面 UI/
 
 预期结果不是简单的“正确 UI”，而是有品味的桌面 UI：有用、耐用、有辨识度、一致，并且可以落地实现。
 
+## Skills
+
+- `desktop-taste`：入口 Skill，用于桌面 UI/UX 任务识别、边界检查和路由选择。
+- `desktop-design-read`：设计前置判断 Skill，在实现前输出平台、应用类型、用户、使用场景、密度、交互方式、主要风险和后续路由。
+
+当前路由覆盖 audit、redesign、native feel、layout、typography、motion、brand 和 `DESIGN.md`。这些专项 Skill 属于后续工作，本 PR 不实现。
+
 ## 不适用场景
 
 Desktop Taste Skills 不是通用工程手册，不是移动或 Web 设计工具，也不是脱离桌面应用 UI 上下文的品牌 / 营销设计系统。
