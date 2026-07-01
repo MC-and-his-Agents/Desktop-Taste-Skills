@@ -2,6 +2,35 @@
 
 本文件记录对安装、升级和发布说明有影响的变更。每个版本保留以下分类：插件变更、Skill 变更、修复、破坏性变更、迁移要求。
 
+## [0.5.0] - 2026-07-02
+
+### 插件变更
+
+- 引入桌面工作流门禁：Desktop Read 现在作为 brief gate，要求大范围 UI 变更前确认平台、目标窗口、真实数据、主要交互、证据目标和约束。
+- 明确桌面视觉 / 证据目标规则：截图、运行中窗口、UI 代码路径、`DESIGN.md`、平台参考、用户描述或已选 art direction 可作为实现、审计、redesign 和 QA 的依据。
+- 更新插件说明和默认提示，加入 post-implementation QA 路由。
+
+### Skill 变更
+
+- 新增 `desktop-qa@0.1.0`，用于桌面 UI 实现后交付前检查。
+- 更新 `desktop-taste@0.2.0`，加入上下文复用、brief gate、证据目标和 QA 路由。
+- 更新 `desktop-design-read@0.2.0`，加入 question / playback mode、hard boundary 和 `evidence_target` 字段。
+- 更新 `desktop-art-direction@0.2.0`，允许在缺少视觉目标时作为已确认设计方向来源。
+- 更新 `desktop-audit@0.2.0`，强化 evidence / limits / minimum fix 绑定。
+- 更新 `desktop-redesign@0.2.0`，要求大范围 redesign 前具备桌面视觉 / 证据目标。
+
+### 修复
+
+- 无。
+
+### 破坏性变更
+
+- 无。
+
+### 迁移要求
+
+- 无。
+
 ## [0.4.0] - 2026-07-01
 
 ### 插件变更

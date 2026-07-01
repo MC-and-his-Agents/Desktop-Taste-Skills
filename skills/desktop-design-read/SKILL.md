@@ -1,12 +1,14 @@
 ---
 name: desktop-design-read
 description: 在编写或修改桌面 UI 前产出可复用的桌面设计判断。
-version: 0.1.0
+version: 0.2.0
 ---
 
 # Desktop Design Read
 
 在写 macOS / Windows 桌面 UI 代码、做重设计、审计或生成 `DESIGN.md` 前，先产出 Desktop Read。它是后续 Skill 和实现工作的设计输入，不是完整设计稿。
+
+本 Skill 同时是桌面 brief gate。它只确认当前设计动作需要的最少上下文；不实现 UI，不创建文件，不生成完整设计系统。
 
 ## 触发条件
 
@@ -37,6 +39,19 @@ version: 0.1.0
 - `anti_pattern`: 明确不要像什么
 - `next_routes`: audit、redesign、native feel、layout、typography、motion、brand、DESIGN.md 中的后续路由
 
+## Brief Gate
+
+使用两种模式之一，不要两种都做：
+
+- `question mode`：缺少会改变设计判断的信息时，只问缺口。关键缺口包括平台、目标窗口或界面、真实数据规模、主要交互、视觉/证据来源、必须保留的功能或不能触碰的约束。
+- `playback mode`：信息已足够时，用简短 Desktop Read 回放判断，并说明下一路由；不要重复询问用户已经给出的内容。
+
+Hard boundary：
+
+- brief gate 未完成前，不做大范围 UI 实现、redesign、审计结论或 `DESIGN.md` 生成。
+- 纯文字新建或重设计请求没有桌面视觉/证据目标时，先输出 Desktop Read，并把后续路由指向 `desktop-art-direction`；不要直接大改 UI。
+- 小型机械 UI 修正可以用当前代码和用户描述作为证据目标，但仍要保留平台、密度和状态判断。
+
 ## 输出格式
 
 ```text
@@ -47,6 +62,7 @@ Desktop Read:
 - session_context: <context>
 - density: <calm / standard / dense / control-room>
 - primary_interaction: <interaction model>
+- evidence_target: <screenshot/runtime/code/DESIGN.md/reference/art direction/user description/missing>
 - design_thesis: <one sentence>
 - anti_pattern: <one sentence>
 - main_risks:
@@ -61,6 +77,7 @@ Desktop Read:
 
 - Desktop Read 必须先于 UI 实现或 redesign 方案出现。
 - 后续实现、审计和 `DESIGN.md` 必须引用 Desktop Read 的平台、密度、交互和风险判断。
+- 在已有项目中，优先复用当前任务相关的 `DESIGN.md`、tokens、样式、组件、截图和平台约束；只有它们正是问题根因时才建议偏离。
 - 不要把 Desktop Read 写成视觉风格库；它只决定方向和边界。
 - 不要默认选择 `calm` 或大留白。开发者工具、数据工具、研究工具和控制台通常需要更高密度。
 - 发现任务其实不是桌面 UI/UX 时，回到 `desktop-taste` 的不适用处理。

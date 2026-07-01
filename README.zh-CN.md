@@ -14,6 +14,8 @@ Desktop Taste Skills 是一个 Codex 插件，包含多项可移植的桌面 UI/
 
 这套 SKILL 帮助 Agent 推理：
 
+- 大范围 UI 变更前的桌面 brief gate
+- 截图、运行中窗口、代码路径、`DESIGN.md`、参考应用或已选设计方向等视觉 / 证据目标
 - 应用类型与工作流上下文
 - macOS、Windows 或跨平台预期
 - 具有原生感的窗口、侧边栏、工具栏、检查器、菜单、对话框、弹出层、命令面板、表格和工作台布局
@@ -28,7 +30,7 @@ Desktop Taste Skills 是一个 Codex 插件，包含多项可移植的桌面 UI/
 ## Skills
 
 - `desktop-taste`：入口 Skill，用于桌面 UI/UX 任务识别、边界检查和路由选择。
-- `desktop-design-read`：设计前置判断 Skill，在实现前输出平台、应用类型、用户、使用场景、密度、交互方式、主要风险和后续路由。
+- `desktop-design-read`：桌面 brief gate，在实现前输出平台、应用类型、用户、使用场景、密度、交互方式、证据目标、主要风险和后续路由。
 - `desktop-art-direction`：输出 2-3 个具体桌面设计方向，包含设计主张、适用边界、反模式和标志性体验瞬间。
 - `desktop-native-feel`：判断 macOS 或 Windows UI 是否像真实桌面软件，而不是网页包壳。
 - `desktop-layout-composition`：选择桌面窗口布局、区域结构和关键组件取舍，确保能承载真实工作流和数据。
@@ -37,6 +39,7 @@ Desktop Taste Skills 是一个 Codex 插件，包含多项可移植的桌面 UI/
 - `desktop-brand-system`：让产品表达留在有用的桌面 UI 内，而不是把应用变成营销页面。
 - `desktop-audit`：审计已有桌面 UI，输出问题诊断、保留项、修正项和实现后检查项。
 - `desktop-redesign`：把审计发现转成可实现的布局、组件、状态、交互和视觉策略。
+- `desktop-qa`：在交付前检查已实现桌面 UI 是否符合 Desktop Read、证据目标、原生感、布局、密度、状态、键盘路径、真实数据和主题要求。
 - `desktop-design-md`：为用户项目生成或更新桌面版 `DESIGN.md`。
 
 可复用模板位于 `templates/`，覆盖桌面版 `DESIGN.md`、Desktop Read、评审和 anti-slop 检查。

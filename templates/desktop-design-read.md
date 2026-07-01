@@ -5,8 +5,9 @@
 ## 使用规则
 
 - 先输出 Desktop Read，再写 UI 方案或代码。
-- 信息不足时做保守判断，并在 `assumptions` 中标注。
+- 信息不足且会改变设计判断时，只问缺口；信息足够时直接回放 Desktop Read。
 - 字段名保持稳定，方便后续 Skill 直接引用。
+- 大范围实现或重设计前必须绑定桌面视觉/证据目标；小型机械修正可以用当前代码和用户描述作为目标。
 - 只覆盖 macOS / Windows 桌面 UI；Web、Mobile、品牌官网和发布工程不进入本模板。
 
 ## 输出格式
@@ -19,6 +20,7 @@ Desktop Read:
 - session_context: <短任务 / 长时间工作 / 频繁切换 / 后台监控 / 批量处理 / 深度创作>
 - density: <calm / standard / dense / control-room>
 - primary_interaction: <mouse-first / keyboard-first / command-first / drag-and-drop / multi-window / multi-pane>
+- evidence_target: <screenshot / runtime / code / DESIGN.md / reference / art direction / user description / missing>
 - design_thesis: <一句话说明界面应该给人的工作感受>
 - anti_pattern: <一句话说明明确不要像什么>
 - main_risks:
@@ -36,6 +38,7 @@ Desktop Read:
 - `session_context`: 决定密度、状态反馈和窗口持久化。
 - `density`: 不因为“高级感”默认 `calm`；开发者工具、数据工具、控制台常用 `dense` 或 `control-room`。
 - `primary_interaction`: 写主路径；可以组合，但不要把所有交互都列上。
+- `evidence_target`: 写后续实现、审计或 QA 可以引用的桌面视觉/证据来源；缺失时写 `missing`，并把下一步指向补证据或 art direction。
 - `design_thesis`: 必须具体到产品工作流，避免“干净现代、简洁高级”。
 - `anti_pattern`: 明确拒绝 Web hero、CTA、landing sections、marketing card grid、SaaS dashboard 或网页壳。
 - `main_risks`: 只列会影响实现或评审的风险。
@@ -52,6 +55,7 @@ Desktop Read:
 - session_context: 长时间工作、频繁切换、多面板排错
 - density: dense
 - primary_interaction: keyboard-first, multi-pane
+- evidence_target: code + user description
 - design_thesis: 界面应像稳定的本地开发工作台，优先让命令、日志和当前对象保持可见。
 - anti_pattern: 不要像 Web SaaS dashboard、landing hero 或卡片墙。
 - main_risks:

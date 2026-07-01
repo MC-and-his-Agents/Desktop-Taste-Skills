@@ -385,6 +385,8 @@ not like <anti-pattern>.
 
 插件应提供一套桌面 UI 质量评价维度，帮助 agent 在实现后自检。
 
+目标状态下应有独立 `desktop-qa` 能力，用于在实现或 redesign 交付前对照 Desktop Read、截图 / runtime / 代码 / `DESIGN.md` / art direction 等证据目标做通过或阻断判断。
+
 建议维度：
 
 ```text
@@ -476,6 +478,9 @@ skills/
     SKILL.md
 
   desktop-motion-interaction/
+    SKILL.md
+
+  desktop-qa/
     SKILL.md
 
   desktop-brand-system/

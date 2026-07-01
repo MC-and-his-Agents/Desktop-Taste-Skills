@@ -1,0 +1,120 @@
+---
+name: desktop-qa
+description: 在桌面 UI 实现或重设计交付前，检查实现是否符合 Desktop Read、桌面证据目标、平台感、布局密度、状态、键盘路径、真实数据和主题要求。
+version: 0.1.0
+---
+
+# Desktop QA
+
+本 Skill 用于 macOS / Windows 桌面 UI 实现后的交付前检查。它不是广义产品审计，也不是代码质量 review；只判断已经实现的桌面界面是否仍符合 Desktop Read 和证据目标。
+
+## 触发条件
+
+当 `desktop-taste` 路由到 `QA`，或用户提出以下需求时使用本 Skill：
+
+- 已完成桌面 UI 实现、重设计或修复，需要交付前检查
+- 需要确认实现没有偏离 Desktop Read、`DESIGN.md`、截图、运行中窗口、代码 UI 结构、平台参考或已选 art direction
+- 需要判断窗口缩放、键盘路径、状态、真实数据、主题和平台感是否足够交付
+- 需要把剩余 P0 / P1 / P2 问题转成最小修复清单
+
+## 不适用场景
+
+不要用本 Skill 处理：
+
+- 没有桌面应用 UI 载体的 Web landing、Mobile app、品牌官网或营销页
+- 用户要广义 UX 审计、产品流程审计或设计 critique；这类任务使用 `desktop-audit`
+- 纯代码正确性、安全、性能、测试覆盖、打包、签名、发布或后端 review
+- 尚未完成实现、没有 implementation evidence，或没有 Desktop Read / 证据目标可对照的任务
+
+## 前置输入
+
+必须引用：
+
+- `Desktop Read`：platform、app_archetype、density、primary_interaction、main_risks 和 evidence_target。
+- source evidence：截图、运行中窗口、现有 UI 代码、`DESIGN.md`、平台参考、用户描述或已选 art direction。
+- implementation evidence：实现后的截图、运行中窗口、代码路径或可复现路径。
+
+证据不足时可以输出 `blocked`，但不要凭记忆说通过。
+
+## 分析方法
+
+1. **绑定目标**：说明本次 QA 对照的 Desktop Read、证据目标和实现证据。
+2. **匹配状态**：确认 source 和 implementation 是否是同一窗口、主题、数据状态和交互状态；不一致先写入 limits。
+3. **检查桌面维度**：平台感、窗口结构、布局、typography / density、状态完整性、键盘路径、真实数据、主题 / high contrast / reduced motion。
+4. **发现优先**：只列会影响交付的 P0 / P1 / P2；P3 可放 follow-up，不阻塞通过。
+5. **给最小修复**：每个阻断项写最小修复，不把 QA 扩成 redesign。
+
+## 检查维度
+
+- `native_feel`: 窗口、toolbar、菜单、context menu、dialog / sheet、系统字体、accent 和平台快捷键。
+- `layout_composition`: sidebar、split view、Inspector、table / list / tree、status bar、窗口缩放和滚动边界。
+- `typography_density`: 字号、行高、表格 / 列表密度、metadata、错误和状态文案。
+- `state_completeness`: hover、focus、selected、active、disabled、loading、empty、error、success、offline / syncing、permission。
+- `keyboard_path`: Tab、方向键、Enter、Esc、快捷键、type-ahead、焦点返回和 focus ring。
+- `real_data_readiness`: 0 / 1 / 10 / 100+ 条记录、长名称、多列、多选、排序、筛选、权限差异和后台任务。
+- `theme_accessibility`: light / dark、high contrast、reduced motion、系统 accent color 和可读性。
+- `brand_expression`: 品牌表达是否服务工作流，没有压过状态色、选择态和主工作区。
+
+## 反模式
+
+- 没有运行或截图证据就说 QA 通过
+- 用审美偏好替代 Desktop Read 的平台、密度和交互判断
+- 发现 P0 / P1 / P2 后仍标记 `passed`
+- 把 QA 扩成完整 redesign，要求重做无关区域
+- 用单一 happy path 截图证明键盘、错误、真实数据或可访问性已经可用
+- 把 Web dashboard、landing hero、低密度卡片墙或平台中性 UI 当作桌面交付通过
+
+## 输出格式
+
+```text
+Desktop QA:
+- result: <passed / blocked>
+- source_read:
+  - platform: <Desktop Read platform>
+  - app_archetype: <Desktop Read app_archetype>
+  - density: <Desktop Read density>
+  - primary_interaction: <Desktop Read primary_interaction>
+  - main_risks: <Desktop Read risks>
+- source_evidence:
+  - <screenshot/runtime/code/DESIGN.md/reference/art direction/user description>
+- implementation_evidence:
+  - <screenshot/runtime/code path/reproduction path>
+- limits:
+  - <当前证据无法证明的交互、可访问性、真实数据或运行状态>
+
+Findings:
+- [P0/P1/P2] <area>: <问题一句话>
+  evidence: <具体证据>
+  impact: <为什么影响桌面交付>
+  minimum_fix: <最小可行修正>
+
+Desktop Checks:
+- native_feel: <pass / needs work / fail + note>
+- layout_composition: <pass / needs work / fail + note>
+- typography_density: <pass / needs work / fail + note>
+- state_completeness: <pass / needs work / fail + note>
+- keyboard_path: <pass / needs work / fail + note>
+- real_data_readiness: <pass / needs work / fail + note>
+- theme_accessibility: <pass / needs work / fail + note>
+- brand_expression: <pass / needs work / fail + note>
+
+Implementation Checklist:
+- <按最小修复顺序列出>
+
+Follow-up Polish:
+- <不阻塞通过的 P3>
+```
+
+`result` 规则：
+
+- `passed`：没有可执行的 P0 / P1 / P2 finding；P3 可以留作 follow-up。
+- `blocked`：仍有 P0 / P1 / P2，或缺少足够 implementation evidence。
+
+## Preflight Checklist
+
+- [ ] 是否引用 Desktop Read 和证据目标
+- [ ] 是否区分 source evidence 与 implementation evidence
+- [ ] 是否说明当前证据的 limits
+- [ ] 是否覆盖平台感、布局、密度、状态、键盘、真实数据和主题
+- [ ] 是否把 P0 / P1 / P2 转成最小修复清单
+- [ ] 是否避免把 QA 扩成无关 redesign 或 Web critique

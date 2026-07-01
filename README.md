@@ -14,6 +14,8 @@ Use Desktop Taste Skills when a coding Agent needs to design, implement, redesig
 
 The suite helps the Agent reason about:
 
+- desktop brief gates before large UI changes
+- visual or evidence targets such as screenshots, running windows, code paths, `DESIGN.md`, references, or selected art direction
 - app type and workflow context
 - macOS, Windows, or cross-platform expectations
 - native-feeling windows, sidebars, toolbars, inspectors, menus, dialogs, popovers, command palettes, tables, and workbench layouts
@@ -28,7 +30,7 @@ The intended outcome is not simply “correct UI”. The intended outcome is des
 ## Skills
 
 - `desktop-taste`: entry Skill for desktop UI/UX task recognition, boundary checks, and route selection.
-- `desktop-design-read`: pre-implementation desktop design read covering platform, app type, user, session context, density, interaction model, risks, and next routes.
+- `desktop-design-read`: pre-implementation desktop brief gate covering platform, app type, user, session context, density, interaction model, evidence target, risks, and next routes.
 - `desktop-art-direction`: produces 2-3 concrete desktop art directions with thesis, fit, anti-patterns, and signature moments.
 - `desktop-native-feel`: checks whether macOS or Windows UI feels like real desktop software instead of a web shell.
 - `desktop-layout-composition`: chooses desktop window layouts, zones, and component tradeoffs for real workflows and data.
@@ -37,6 +39,7 @@ The intended outcome is not simply “correct UI”. The intended outcome is des
 - `desktop-brand-system`: keeps product expression inside useful desktop UI rather than turning the app into marketing surface.
 - `desktop-audit`: audits existing desktop UI and produces diagnosis, preservation guidance, fixes, and implementation checks.
 - `desktop-redesign`: turns audit findings into implementable layout, component, state, interaction, and visual strategy.
+- `desktop-qa`: checks implemented desktop UI before handoff against Desktop Read, evidence targets, native feel, layout, density, states, keyboard path, real data, and themes.
 - `desktop-design-md`: creates or updates a desktop-focused `DESIGN.md` for user projects.
 
 Reusable templates live in `templates/` for desktop `DESIGN.md`, Desktop Read, critique, and anti-slop checks.
