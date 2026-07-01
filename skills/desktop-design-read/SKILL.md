@@ -35,10 +35,11 @@ version: 0.3.0
 - `session_context`: 短任务、长时间工作、频繁切换、后台监控、批量处理、深度创作
 - `density`: calm、standard、dense、control-room
 - `primary_interaction`: 鼠标优先、键盘优先、command-first、drag-and-drop、multi-window、multi-pane
+- `evidence_target`: screenshot、runtime、code、DESIGN.md、reference、art direction、user description 或 missing
 - `main_risks`: 网页壳、dashboard 化、过度留白、平台感缺失、状态缺失、真实数据下失效
 - `design_thesis`: 这个界面应该给人的一句话感受
 - `anti_pattern`: 明确不要像什么
-- `next_routes`: audit、redesign、native feel、layout、typography、motion、brand、DESIGN.md 中的后续路由
+- `next_routes`: audit、redesign、native feel、layout、typography、motion、brand、QA、DESIGN.md 中的后续路由
 
 ## Brief Gate
 

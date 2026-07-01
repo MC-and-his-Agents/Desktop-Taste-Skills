@@ -27,7 +27,7 @@ Desktop Read:
 - main_risks:
   - <web shell / dashboard 化 / 过度留白 / 平台感缺失 / 状态缺失 / 真实数据下失效>
 - next_routes:
-  - <audit / redesign / native feel / layout / typography / motion / brand / DESIGN.md>
+  - <audit / redesign / native feel / layout / typography / motion / brand / QA / DESIGN.md>
 - assumptions:
   - <only if needed>
 ```
