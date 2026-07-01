@@ -35,8 +35,11 @@ Desktop Taste Skills 是一个 Codex 插件，包含多项可移植的桌面 UI/
 - `desktop-typography-density`：校准文字层级、间距、文字角色、表格、列表和信息密度。
 - `desktop-motion-interaction`：设计和审查桌面动效、交互状态、反馈、撤销 / 重做和减少动态效果。
 - `desktop-brand-system`：让产品表达留在有用的桌面 UI 内，而不是把应用变成营销页面。
+- `desktop-audit`：审计已有桌面 UI，输出问题诊断、保留项、修正项和实现后检查项。
+- `desktop-redesign`：把审计发现转成可实现的布局、组件、状态、交互和视觉策略。
+- `desktop-design-md`：为用户项目生成或更新桌面版 `DESIGN.md`。
 
-当前路由覆盖 audit、redesign、native feel、layout、typography、motion、brand 和 `DESIGN.md`。audit、redesign 和 `DESIGN.md` 输出 Skill 仍是后续工作。
+可复用模板位于 `templates/`，覆盖桌面版 `DESIGN.md`、Desktop Read、评审和 anti-slop 检查。
 
 ## 不适用场景
 
@@ -62,6 +65,7 @@ Desktop Taste Skills 不是通用工程手册，不是移动或 Web 设计工具
 
    ```sh
    python3 scripts/validate_repo.py
+   python3 scripts/smoke_plugin_install.py
    ```
 
 如果 Codex 找不到插件，先确认安装的是仓库根目录，而不是 `.codex-plugin/` 子目录；再运行校验脚本，排查无效版本、缺失文件或指向仓库外部的 manifest 路径。
@@ -72,6 +76,7 @@ Desktop Taste Skills 不是通用工程手册，不是移动或 Web 设计工具
 2. 阅读 [CHANGELOG.md](CHANGELOG.md)，确认安装、升级、迁移和破坏性变更说明。
 3. 在 Codex 中从同一个仓库根目录刷新或重新安装插件。
 4. 重新运行 `python3 scripts/validate_repo.py`。
+5. 重新运行 `python3 scripts/smoke_plugin_install.py`。
 
 每个已发布 Skill 位于 `skills/<name>/SKILL.md`，其 frontmatter 必须包含 `name`、`description` 和 `version`。
 

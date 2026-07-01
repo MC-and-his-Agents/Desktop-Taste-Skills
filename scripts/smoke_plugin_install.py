@@ -133,6 +133,21 @@ def discover_skills(root: Path, manifest: dict) -> int:
     return len(skill_dirs)
 
 
+def discover_templates(root: Path) -> int:
+    templates_root = root / "templates"
+    if not templates_root.exists():
+        return 0
+    if not templates_root.is_dir():
+        fail("templates", "templates must be a directory")
+    template_files = sorted(path for path in templates_root.iterdir() if path.is_file())
+    if not template_files:
+        fail("templates", "templates directory contains no files")
+    for path in template_files:
+        if path.suffix != ".md":
+            fail("templates", f"{path.relative_to(root)} must be a Markdown template")
+    return len(template_files)
+
+
 def run_clean_validation(root: Path) -> None:
     validator = root / "scripts" / "validate_repo.py"
     if not validator.is_file():
@@ -156,8 +171,13 @@ def main() -> None:
         manifest = load_manifest(install_root)
         template_paths = validate_manifest_paths(install_root, manifest)
         skill_count = discover_skills(install_root, manifest)
+        template_count = discover_templates(install_root)
         run_clean_validation(install_root)
-    print(f"install smoke passed: manifest ok, skills={skill_count}, templates={template_paths}")
+    print(
+        "install smoke passed: "
+        f"manifest ok, skills={skill_count}, "
+        f"template_paths={template_paths}, template_files={template_count}"
+    )
 
 
 if __name__ == "__main__":
