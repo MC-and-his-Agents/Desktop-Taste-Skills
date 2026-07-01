@@ -1,7 +1,7 @@
 ---
 name: desktop-redesign
 description: 将 macOS 和 Windows 桌面应用审计诊断转成可实现的 redesign 方案。
-version: 0.3.0
+version: 0.4.0
 ---
 
 # Desktop Redesign
@@ -16,6 +16,7 @@ version: 0.3.0
 - 已有界面像网页壳、demo、dashboard、landing page、低密度 SaaS 后台或平台感不足
 - 已有 `desktop-audit` / 设计审计结论，需要转成可实现的 redesign
 - 需要在不改变核心功能的前提下提升 native feel、layout、typography、motion 或 brand
+- 已有 selected visual draft，需要转成可实现的桌面布局、组件、状态和材料边界
 - 需要给 coding agent 一个可直接拆任务实现的桌面 UI 改造顺序
 
 ## 不适用场景
@@ -37,6 +38,7 @@ version: 0.3.0
 - `Desktop Read`：至少包含 `platform`、`app_archetype`、`user_role`、`session_context`、`density`、`primary_interaction`、`design_thesis`、`anti_pattern` 和 `main_risks`。
 - 平台深度：macOS-first、Windows-first 或 cross-platform desktop；macOS-first 时必须保留 Liquid Glass、scene/window、toolbar/sidebar/Inspector 和 AppKit 边界判断，Windows-first 时不得套用 macOS 材料规则。
 - 现有界面证据：截图、运行中的窗口、代码中的 UI 结构、用户描述或可复现路径。
+- 视觉目标：可选的 selected visual draft、draft-ready brief 或 art direction。它们是视觉证据目标，不是像素级实现稿。
 - `desktop-audit` 结论：如果已有审计，消费其 findings、severity、证据和建议；如果没有，先做最小诊断，不假装已有审计。
 - 约束：必须保留的功能、数据、命令、快捷键、平台、技术栈和不能触碰的文件。
 
@@ -46,6 +48,7 @@ version: 0.3.0
 
 - `source_read` 必须明确来自 Desktop Read 的平台、密度、交互和风险判断。
 - `audit_source` 必须说明来自 `desktop-audit`、用户截图、代码阅读还是保守假设。
+- `selected_visual_draft` 必须拆成可实现契约：布局区域、组件角色、密度、层级、色彩 / 材质意图、状态语义和 signature moment；不得照抄随机文字、假数据、系统 chrome 或不可实现视觉细节。
 - 信息不足时用 `assumption` 标注，不要把猜测写成事实。
 
 ## 分析方法
@@ -56,8 +59,9 @@ version: 0.3.0
 2. **归并审计问题**：把 audit findings 合并为 3-6 个 redesign drivers，例如平台感缺失、布局层级不清、密度不匹配、状态缺失、品牌表达无意义、真实数据下失效。
 3. **确定 redesign thesis**：用一句话说明新界面要成为哪类桌面工具，以及明确不再像什么。
 4. **转成可实现策略**：把每个 driver 转成布局、组件、状态、交互和视觉策略，而不是停在“更专业、更原生、更现代”。
-5. **排定实现顺序**：先改信息架构和结构，再改组件状态与交互，最后做视觉细化。避免先做表面样式导致后续返工。
-6. **设置验证点**：每个阶段都要能用截图、真实数据、键盘路径、窗口缩放、主题 / reduced motion 或状态覆盖检查结果。
+5. **映射设计稿**：如有 selected visual draft，逐项标记 `adopt`、`adapt` 或 `reject`。只吸收对桌面工作流有意义的结构、密度、状态、平台材料和 signature moment。
+6. **排定实现顺序**：先改信息架构和结构，再改组件状态与交互，最后做视觉细化。避免先做表面样式导致后续返工。
+7. **设置验证点**：每个阶段都要能用截图、真实数据、键盘路径、窗口缩放、主题 / reduced motion 或状态覆盖检查结果。
 
 ## Redesign 决策面
 
@@ -100,6 +104,7 @@ version: 0.3.0
 - 先引用 `desktop-typography-density` 确定密度、字号、行高、表格 / 列表节奏，再调整留白。
 - 先引用 `desktop-motion-interaction` 确定状态反馈和转场语义，再写 easing 或 duration。
 - 先引用 `desktop-brand-system` 选择 2-3 个品牌载体，例如 accent、empty state、microcopy、icon language 或 signature interaction；不要把品牌铺满工作区。
+- 如果引用 selected visual draft，把它当作方向约束而非像素规范；系统 chrome、随机生成文字、不可读 blur、假图表和非产品装饰默认需要 adapt 或 reject。
 
 ## 实现顺序
 
@@ -119,6 +124,7 @@ version: 0.3.0
 
 - Desktop Read 与 redesign thesis 一致，没有偏离平台、用户、密度和交互判断。
 - audit findings 已逐条映射为保留、修正、延期或不处理，并说明原因。
+- selected visual draft 已被映射为 adopt / adapt / reject，没有把不可实现细节照抄进实现计划。
 - 现有核心功能、产品对象、命令名称、快捷键和数据语义没有被无关重写。
 - 0 / 1 / 多条真实数据、长文本、多选、错误、权限、同步和后台任务都有可见处理。
 - 窗口缩放、splitter、滚动区域、焦点、selected、hover、disabled 和 context menu 可用。
@@ -136,6 +142,7 @@ version: 0.3.0
 - 先建一套抽象设计系统，再回头找使用场景
 - 为了统一跨平台而牺牲 macOS / Windows 的窗口、菜单、焦点和快捷键预期
 - 用大渐变、毛玻璃、插画、空状态文案或动效掩盖工作区不可用
+- 把 ImageGen 设计稿当成像素级规范，照抄随机文字、错误平台 chrome、不可读材料或不存在的产品对象
 - 为了 Liquid Glass 或自绘 chrome 破坏 macOS 系统 toolbar、sidebar、sheet、popover、focus 或语义状态
 - AppKit bridge 没有明确 owner，重复 SwiftUI 状态源，或把 NSWindow / NSView 泄漏到无关视图层
 - 忽略已有 audit 证据，重新凭感觉做一份不相关设计
@@ -152,7 +159,11 @@ Desktop Redesign:
   - primary_interaction: <Desktop Read primary_interaction>
   - main_risks: <Desktop Read risks>
 - audit_source: <desktop-audit / screenshots / code read / assumption>
-- evidence_target: <screenshot/runtime/code/DESIGN.md/reference/art direction/user description>
+- evidence_target: <screenshot/runtime/code/DESIGN.md/reference/art direction/draft-ready brief/selected visual draft/user description>
+- selected_visual_draft:
+  - source: <image id / file path / prompt / brief / not provided>
+  - scope: <window / platform / theme / data state>
+  - use_as: <visual evidence target, not pixel spec>
 - redesign_thesis: <一句话说明新界面应成为哪类桌面工具>
 - preserve:
   - <必须保留的产品语义、功能、命令、数据或用户路径>
@@ -177,6 +188,13 @@ Desktop Redesign:
   - typography: <密度与层级判断>
   - motion: <反馈判断>
   - brand: <品牌载体与禁用项>
+- implementation_mapping:
+  - adopt:
+    - <从 selected visual draft 直接吸收的结构、状态、密度或材料边界>
+  - adapt:
+    - <需要按平台、可读性、真实数据或工程约束调整的视觉细节>
+  - reject:
+    - <随机文字、假数据、错误 chrome、不可实现材料或非产品装饰>
 - implementation_order:
   - 1. <first change>
   - 2. <next change>

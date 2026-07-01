@@ -1,7 +1,7 @@
 ---
 name: desktop-design-md
 description: 生成或更新 macOS / Windows 桌面应用项目中的 DESIGN.md，记录可延续的桌面 UI/UX 设计契约。
-version: 0.2.0
+version: 0.3.0
 ---
 
 # Desktop DESIGN.md
@@ -17,6 +17,7 @@ version: 0.2.0
 - 生成、更新、补齐或遵循桌面应用 `DESIGN.md`
 - 为 macOS / Windows / cross-platform 桌面应用沉淀设计规范
 - 在实现前记录窗口、布局、密度、组件、状态、动效和品牌规则
+- 把 selected visual draft、draft-ready brief 或 art direction 转成可延续的桌面设计契约
 - 让后续 Agent 能延续同一桌面 UI/UX 方向，而不是每次重新发明界面
 - 把 Desktop Read、art direction、native feel、layout、typography、motion 或 brand 结论整理成项目文档
 
@@ -44,16 +45,19 @@ version: 0.2.0
 
 如项目已有 UI、截图、设计说明或旧 `DESIGN.md`，先读取现有事实，保留仍有效的设计约束；不要用新文档覆盖真实产品行为。
 
+如存在 selected visual draft，必须记录它的来源、适用窗口、平台、主题、数据状态、选择理由和不可照抄边界。设计稿只提供视觉目标和结构证据，不是像素级规范。
+
 ## 分析方法
 
 1. 先写设计主张，再写 token 或组件细节。`DESIGN.md` 必须说明这个桌面应用应该像什么、服务谁、在哪种工作流里成立。
 2. 每条规则都要能指导后续 Agent 做取舍。避免只写“现代、简洁、高级、专业”等不可执行形容词。
 3. 规则必须落到桌面对象：窗口、标题栏、工具栏、侧边栏、split view、Inspector、表格、列表、命令面板、状态栏、popover、dialog、焦点和选择状态。
-4. macOS 与 Windows 的差异要写清。cross-platform 可以共享信息架构，但不能把平台习惯压成通用 Web UI。
-5. macOS-first 可以更深入记录 Liquid Glass、SwiftUI scene/window、toolbar/sidebar/Inspector 和 AppKit narrow bridge；这些规则不能默认套用到 Windows。
-6. Windows-first 必须保留 title bar、command bar、context menu、快捷键、系统主题、Mica / Acrylic 或 Fluent 预期，不被 macOS 材料语言覆盖。
-7. 设计密度服务真实数据。用空态、1 条、10 条、100+ 条、长名称、多选、错误、加载和窄窗口检查文档是否可实现。
-8. 只记录当前项目需要的规则。不要写未来也许会用到的组件库、主题引擎或完整设计系统。
+4. 如果消费 selected visual draft，先提炼可实现契约：布局、组件角色、密度、材料边界、状态语义和 signature moment；随机生成文字、错误平台 chrome、假数据、不可读 blur 和非产品装饰必须标记为不照抄。
+5. macOS 与 Windows 的差异要写清。cross-platform 可以共享信息架构，但不能把平台习惯压成通用 Web UI。
+6. macOS-first 可以更深入记录 Liquid Glass、SwiftUI scene/window、toolbar/sidebar/Inspector 和 AppKit narrow bridge；这些规则不能默认套用到 Windows。
+7. Windows-first 必须保留 title bar、command bar、context menu、快捷键、系统主题、Mica / Acrylic 或 Fluent 预期，不被 macOS 材料语言覆盖。
+8. 设计密度服务真实数据。用空态、1 条、10 条、100+ 条、长名称、多选、错误、加载和窄窗口检查文档是否可实现。
+9. 只记录当前项目需要的规则。不要写未来也许会用到的组件库、主题引擎或完整设计系统。
 
 ## DESIGN.md 结构
 
@@ -83,6 +87,7 @@ version: 0.2.0
 - 一句话设计主张：这个应用应给人的具体桌面感受
 - 用户、场景、任务时长和信息密度
 - 主要工作流和最重要的对象
+- selected visual draft 的来源、适用窗口 / 状态、选择理由和不可照抄边界
 - 正面参照：像哪类专业工具、工作台或系统应用
 - 负面参照：明确不要像什么
 
@@ -214,6 +219,8 @@ version: 0.2.0
 ```text
 Desktop DESIGN.md:
 - source_read: <Desktop Read 引用或 assumptions>
+- selected_visual_draft: <image id / file path / prompt / brief / not provided>
+- visual_target_scope: <platform / target window / theme / data state / selected by>
 - target_file: <用户项目中的 DESIGN.md 路径>
 - action: <create/update>
 - platform: <macOS / Windows / cross-platform>
@@ -231,6 +238,7 @@ Desktop DESIGN.md:
 
 - [ ] `DESIGN.md` 包含 12 个一级主题或明确保留等价结构
 - [ ] 已记录 design thesis、platform、window/surface、layout、typography、spacing、color/materials、components、motion、brand、anti-slop 和 Agent guide
+- [ ] 如使用 selected visual draft，已记录来源、适用窗口、选择理由、可吸收契约和不可照抄边界
 - [ ] 后续 Agent 能根据文档延续设计，而不是只看到风格形容词
 - [ ] 没有默认生成 Web landing、hero、CTA、responsive web breakpoints 或 marketing card grid
 - [ ] 规则来自当前桌面项目事实、Desktop Read 和必要 assumptions

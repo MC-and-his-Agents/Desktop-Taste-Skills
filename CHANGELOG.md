@@ -2,6 +2,37 @@
 
 本文件记录对安装、升级和发布说明有影响的变更。每个版本保留以下分类：插件变更、Skill 变更、修复、破坏性变更、迁移要求。
 
+## [0.7.0] - 2026-07-02
+
+### 插件变更
+
+- 新增 Desktop Visual Draft 能力：在缺少视觉目标或用户要求设计稿时，为 macOS / Windows 桌面应用生成 3 张独立 ImageGen 窗口设计稿。
+- 将 selected visual draft 纳入桌面证据目标链路，后续 redesign、`DESIGN.md` 和 QA 可以引用它，但不得把它当作像素级实现规范。
+- 更新插件说明和默认提示，加入 visual draft 路由与 selected visual draft 证据目标。
+
+### Skill 变更
+
+- 新增 `desktop-visual-draft@0.1.0`，定义设计稿触发边界、ImageGen prompt、尺寸、窗口状态、三方案输出和选择交接。
+- 更新 `desktop-taste@0.4.0`，加入 visual draft 路由、target surface / draft state / draft dimensions 与 selected visual draft 证据目标。
+- 更新 `desktop-design-read@0.4.0`，增加 `target_surface`、`draft_state`、`draft_dimensions` 字段，并扩展 `evidence_target` 与 `next_routes`。
+- 更新 `desktop-art-direction@0.3.0`，输出 draft-ready brief 和 visual draft handoff 片段。
+- 更新 `desktop-redesign@0.4.0`，消费 selected visual draft，并用 `adopt / adapt / reject` 防止照抄不可实现细节。
+- 更新 `desktop-design-md@0.3.0`，记录 selected visual draft 的来源、适用窗口、选择理由和不可照抄边界。
+- 更新 `desktop-qa@0.3.0`，增加 selected visual draft 与实现截图 / runtime evidence 的非 pixel-perfect 对齐检查。
+- 新增 `templates/desktop-visual-draft.md`，并更新 Desktop Read、DESIGN.md、critique 和 anti-slop 模板的设计稿证据字段。
+
+### 修复
+
+- 无。
+
+### 破坏性变更
+
+- 无。
+
+### 迁移要求
+
+- 无。
+
 ## [0.6.0] - 2026-07-02
 
 ### 插件变更

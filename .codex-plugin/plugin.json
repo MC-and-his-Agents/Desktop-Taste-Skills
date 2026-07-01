@@ -1,6 +1,6 @@
 {
   "name": "desktop-taste",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Desktop UI/UX taste skills for coding Agents building macOS and Windows applications.",
   "skills": "./skills/",
   "author": {
@@ -18,7 +18,7 @@
   "interface": {
     "displayName": "Desktop Taste",
     "shortDescription": "Improve macOS and Windows app UI",
-    "longDescription": "Desktop Taste helps coding Agents recognize macOS and Windows desktop UI/UX tasks, run a design read brief gate before implementation, bind work to desktop evidence, and route work toward better layout, typography, spacing, density, motion, native feel, product-specific expression, post-implementation QA, and deeper macOS-native guidance including Liquid Glass, SwiftUI scene/window patterns, and narrow AppKit boundaries.",
+    "longDescription": "Desktop Taste helps coding Agents recognize macOS and Windows desktop UI/UX tasks, run a design read brief gate before implementation, generate selected desktop visual drafts when needed, bind work to desktop evidence, and route work toward better layout, typography, spacing, density, motion, native feel, product-specific expression, post-implementation QA, and deeper macOS-native guidance including Liquid Glass, SwiftUI scene/window patterns, and narrow AppKit boundaries.",
     "developerName": "MC and his Agents",
     "category": "Creativity",
     "capabilities": [
@@ -28,9 +28,10 @@
     "defaultPrompt": [
       "Decide whether this UI task belongs to Desktop Taste",
       "Run a Desktop Read brief gate before editing this desktop app UI",
-      "Bind desktop UI work to screenshots, runtime, code, DESIGN.md, references, or selected art direction",
+      "Bind desktop UI work to screenshots, runtime, code, DESIGN.md, references, selected art direction, or selected visual draft",
+      "Generate three desktop visual draft variants for macOS or Windows before implementation when a visual target is missing",
       "Apply macOS Native Depth when relevant: Liquid Glass, scene/window roles, toolbar/sidebar/inspector, and AppKit boundaries",
-      "Route this desktop UI task to audit, redesign, native feel, layout, typography, motion, brand, QA, or DESIGN.md"
+      "Route this desktop UI task to audit, redesign, native feel, layout, typography, motion, brand, art direction, visual draft, QA, or DESIGN.md"
     ],
     "brandColor": "#4F7CAC"
   }

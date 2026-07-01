@@ -13,6 +13,7 @@
 - 加强 macOS 原生深度：Liquid Glass、SwiftUI scene/window、AppKit 边界、toolbar、sidebar、Inspector
 - 重设计已有桌面应用
 - 让界面更原生、更有品味、更不像网页壳
+- 生成可评审的桌面应用设计稿，并把 selected visual draft 作为后续实现 / QA 的证据目标
 - 生成桌面应用设计规范
 - 优化局部桌面 UI：侧边栏、工具栏、设置页、命令面板、表格、工作台、Inspector、状态栏等
 
@@ -40,6 +41,7 @@
 - 使用场景：短任务、长时间工作、频繁切换、后台监控、批量处理、深度创作
 - 信息密度：calm、standard、dense、control-room
 - 主要交互：鼠标优先、键盘优先、command-first、drag-and-drop、multi-window、multi-pane
+- 设计稿目标：target surface、draft state、draft dimensions、selected visual draft 或 visual evidence target
 - 设计风险：网页壳、dashboard 化、过度留白、假高级感、平台感缺失、状态缺失
 
 核心输出可以是：
@@ -84,7 +86,31 @@ not like <anti-pattern>.
 
 ---
 
-## 4. 桌面原生感能力
+## 4. 设计稿生成能力
+
+插件应能在缺少视觉目标、用户要求 mockup，或需要实现前评审方向时，生成桌面应用设计稿。
+
+应提供能力：
+
+- 在 Desktop Read 和 art direction 之后生成 3 张独立 bitmap 设计稿
+- 每张设计稿绑定具体桌面窗口、状态、尺寸、平台深度和信息密度
+- 明确 ImageGen prompt、negative prompt、窗口 chrome、布局区域、真实数据压力和材料边界
+- macOS-first 可以强调 Liquid Glass，但只能用于合适表面，不能牺牲内容可读性、状态语义或 Windows 覆盖
+- Windows-first 必须保留 title bar、command bar、context menu、系统主题和 Fluent / Mica / Acrylic 预期
+- 用户选择后把 selected visual draft 记录为 evidence target
+- 后续实现只吸收结构、密度、状态、平台材料边界和 signature moment，不像素级照抄随机文字、系统 chrome、假图表或不可实现细节
+
+它不应变成：
+
+- image-to-code 自动实现
+- Web landing / Mobile / 品牌海报 / 社媒图生成器
+- Figma 项目管理流程
+- macOS-only 设计稿系统
+- 像素级规范或 QA 通过证明
+
+---
+
+## 5. 桌面原生感能力
 
 插件应帮助 agent 判断界面是否像真实 macOS / Windows 应用，而不是网页包壳。
 
@@ -124,7 +150,7 @@ not like <anti-pattern>.
 
 ---
 
-## 5. 布局与构图能力
+## 6. 布局与构图能力
 
 插件应提供桌面应用布局判断能力，避免默认 card grid、dashboard、网页式页面结构。
 
@@ -161,7 +187,7 @@ not like <anti-pattern>.
 
 ---
 
-## 6. 字体、间距、密度能力
+## 7. 字体、间距、密度能力
 
 插件应提供桌面应用的 typography、spacing 和 density 判断能力。
 
@@ -201,7 +227,7 @@ not like <anti-pattern>.
 
 ---
 
-## 7. Motion 与交互手感能力
+## 8. Motion 与交互手感能力
 
 插件应区分“网页动效”和“桌面交互反馈”。
 
@@ -231,7 +257,7 @@ not like <anti-pattern>.
 
 ---
 
-## 8. 品牌表达能力
+## 9. 品牌表达能力
 
 插件应让品牌感进入桌面应用，而不是把应用做成营销页面。
 
@@ -261,7 +287,7 @@ not like <anti-pattern>.
 
 ---
 
-## 9. 桌面反模式识别能力
+## 10. 桌面反模式识别能力
 
 插件应有强 anti-slop 能力，阻止 agent 生成常见低质桌面 UI。
 
@@ -287,7 +313,7 @@ not like <anti-pattern>.
 
 ---
 
-## 10. Redesign / Audit 能力
+## 11. Redesign / Audit 能力
 
 插件应能用于已有桌面应用的设计审计和重设计。
 
@@ -316,7 +342,7 @@ not like <anti-pattern>.
 
 ---
 
-## 11. DESIGN.md 生成能力
+## 12. DESIGN.md 生成能力
 
 插件应能在用户需要时生成桌面版 `DESIGN.md`。
 
@@ -368,7 +394,7 @@ not like <anti-pattern>.
 
 ---
 
-## 12. 实现指导能力
+## 13. 实现指导能力
 
 插件不是只给设计建议，还要指导 coding agent 如何落地。
 
@@ -387,11 +413,11 @@ not like <anti-pattern>.
 
 ---
 
-## 13. 质量评估能力
+## 14. 质量评估能力
 
 插件应提供一套桌面 UI 质量评价维度，帮助 agent 在实现后自检。
 
-目标状态下应有独立 `desktop-qa` 能力，用于在实现或 redesign 交付前对照 Desktop Read、截图 / runtime / 代码 / `DESIGN.md` / art direction 等证据目标做通过或阻断判断。
+目标状态下应有独立 `desktop-qa` 能力，用于在实现或 redesign 交付前对照 Desktop Read、截图 / runtime / 代码 / `DESIGN.md` / art direction / selected visual draft 等证据目标做通过或阻断判断。
 
 建议维度：
 
@@ -474,6 +500,9 @@ skills/
   desktop-art-direction/
     SKILL.md
 
+  desktop-visual-draft/
+    SKILL.md
+
   desktop-native-feel/
     SKILL.md
 
@@ -518,6 +547,7 @@ skills/
 templates/
   DESIGN.md
   desktop-design-read.md
+  desktop-visual-draft.md
   critique.md
 ```
 

@@ -5,9 +5,10 @@
 ## 使用方式
 
 1. 引用已有 Desktop Read；没有时先补齐平台、用户、场景、密度和主要风险。
-2. 用真实窗口和真实数据检查：空态、1 条、10 条、100+ 条、长名称、错误、加载、多选和窗口缩放。
-3. 每个失败项给出最小修正方向；redesign 只扩展已失败的项，不新增无关范围。
-4. 若出现阻断项，不要标记桌面 UI 已就绪。
+2. 如有 selected visual draft，同时记录设计稿来源、适用窗口 / 状态和实现截图 / runtime evidence。
+3. 用真实窗口和真实数据检查：空态、1 条、10 条、100+ 条、长名称、错误、加载、多选和窗口缩放。
+4. 每个失败项给出最小修正方向；redesign 只扩展已失败的项，不新增无关范围。
+5. 若出现阻断项，不要标记桌面 UI 已就绪。
 
 ## 检查清单
 
@@ -23,6 +24,7 @@
 | `platform-neutral` | macOS 和 Windows 共用一套窗口控制、菜单、快捷键、焦点、滚动条、字体和 dialog 行为，结果两边都不像桌面应用。 | 写明平台策略：macOS 优先、Windows 优先或 cross-platform 折中；保留对应窗口 chrome、菜单/命令、快捷键、系统字体、accent、reduced motion 和 high contrast。 |
 | `fake Liquid Glass` | macOS-first 界面用手绘半透明层、重复 blur、发光边框或暗色 scrim 冒充系统 Liquid Glass；正文、表格、代码、错误、focus ring 或 selected state 被材料遮掉。 | 先使用系统 toolbar、sidebar、sheet、popover 和材料；只在局部 signature surface 自定义，并提高数据区、表单区和错误区的不透明度与对比。 |
 | `macOS rules on Windows` | 把 Liquid Glass、macOS toolbar/sidebar 或 AppKit 边界当作跨平台默认，导致 Windows title bar、command bar、context menu、快捷键、Mica / Acrylic 或 Fluent 预期丢失。 | 在 Desktop Read 中标出 macOS-first、Windows-first 或 cross-platform desktop；Windows-first 保留 Windows 原生结构和系统主题。 |
+| `visual draft cosplay` | 实现照抄 ImageGen 设计稿里的随机文字、错误系统 chrome、不可读 blur、假图表、无关装饰或不存在的产品对象，而不是继承可实现桌面契约。 | 把 selected visual draft 拆成 `adopt / adapt / reject`：只保留布局、密度、状态、材料边界和 signature moment；其余按平台、真实数据和可读性调整。 |
 
 ## 审计输出模板
 
@@ -32,6 +34,10 @@ Desktop Anti-Slop:
 - platform_strategy: <macOS / Windows / cross-platform>
 - platform_depth: <macOS-first / Windows-first / cross-platform desktop>
 - density: <calm / standard / dense / control-room>
+- selected_visual_draft: <id/path/source/window_scope/platform/theme/data_state/not provided>
+- implementation_evidence: <screenshot/runtime path/head_sha/run_id/captured_at/window size/theme/data fixture>
+- comparison_scope: <参与比较的窗口、状态、流程和尺寸>
+- draft_vs_runtime_evidence: <哪些 blocker 来自 draft 与实现截图 / runtime 的差异>
 - result: <pass / fail>
 - blockers:
   - <signal>: <evidence> -> <minimum fix>

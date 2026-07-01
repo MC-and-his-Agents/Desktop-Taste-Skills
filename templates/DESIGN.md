@@ -6,6 +6,7 @@
 
 - 先写文字：每节先用 1-3 句自然语言写清设计意图、边界和取舍，再列规则或 token。
 - 从 `Desktop Read` 开始写：必须引用平台、应用类型、用户、使用场景、密度、主要交互和风险。
+- 如使用 selected visual draft，记录来源、适用窗口、状态、尺寸、选择理由和不可照抄边界；它是视觉目标，不是像素规范。
 - 只写桌面应用结构：窗口、标题栏、工具栏、侧边栏、split view、Inspector、表格、命令面板、状态栏、popover、dialog、菜单和快捷键。
 - 不生成 Web hero、CTA、landing sections、responsive web breakpoints、marketing card grid、SaaS dashboard 或品牌官网文案。
 - 不把本文件写成研究资料、灵感墙或组件库全集；只保留当前产品需要遵守的判断。
@@ -21,6 +22,10 @@
 - density: <calm / standard / dense / control-room>
 - primary_interaction: <鼠标 / 键盘 / command-first / drag-and-drop / multi-pane / multi-window>
 - main_risks: <网页壳 / dashboard 化 / 过度留白 / 平台感缺失 / 状态缺失 / 真实数据下失效>
+- selected_visual_draft: <image id / file path / prompt / brief / not provided>
+- visual_target_scope: <platform / target window / theme / data state / window size / selected by>
+- visual_target_contract: <从设计稿提炼出的布局、密度、状态、材料边界和 signature moment>
+- do_not_copy_from_draft: <随机文字 / exact pixels / fake system chrome / unreadable blur / non-product assets>
 
 ## 1. 桌面设计主张
 
@@ -28,6 +33,7 @@
 
 - should_feel_like: <具体软件类型、工作台或专业场景>
 - should_not_feel_like: <明确反模式>
+- selected_visual_target: <如果有，说明设计稿选择理由和适用窗口 / 状态>
 - signature_moment: <用户会在核心工作流里反复感知的一个产品瞬间>
 
 ## 2. 平台目标
@@ -115,6 +121,7 @@
   - danger: <规则>
   - info: <规则>
 - material_rules: <macOS Liquid Glass / vibrancy、Windows Mica-Acrylic、自定义材质的使用边界；不得牺牲正文、表格、代码、错误和表单可读性>
+- visual_draft_material_mapping: <哪些材料/层级来自 selected visual draft，哪些需要按平台和可读性调整>
 - theme_rules: <light、dark、high contrast、system accent 的适配>
 
 ## 8. 组件
@@ -185,6 +192,7 @@
 
 - before_editing:
   - 先读取本文件和最新 Desktop Read。
+  - 如存在 selected visual draft，先读取 visual_target_contract 和 do_not_copy_from_draft。
   - 明确要改的窗口区域、状态和用户路径。
   - 不要为了局部改动引入 Web 页面结构。
 - implementation_rules:
@@ -192,6 +200,7 @@
   - UI、业务逻辑、数据访问和外部 API 不混在同一模块。
   - 每个可操作状态至少覆盖 hover、focus、selected 或 disabled 中相关项。
   - 表格、列表、树和 Inspector 必须用真实数据压力检查。
+  - 设计稿只用于继承结构、密度、状态、材料边界和 signature moment；不要照抄随机文字、错误系统 chrome、不可读 blur 或非产品装饰。
   - macOS-first 变更必须说明 scene/window 角色、Liquid Glass 使用边界、AppKit bridge owner 和 Windows 非适用范围。
 - review_checklist:
   - 窗口结构是否仍像桌面应用。

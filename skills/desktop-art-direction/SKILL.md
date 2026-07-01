@@ -1,7 +1,7 @@
 ---
 name: desktop-art-direction
 description: 为 macOS 和 Windows 桌面应用提出、比较并推荐明确的 Art Direction，避免平均化模板 UI。
-version: 0.2.0
+version: 0.3.0
 ---
 
 # Desktop Art Direction
@@ -15,8 +15,9 @@ version: 0.2.0
 - 用户要求设计方向、视觉方向、art direction、产品气质、品牌表达或 UI 风格探索
 - 用户说界面太普通、太模板、太像网页壳、太像通用 SaaS dashboard
 - 需要在实现前比较 2-3 个桌面设计方向
+- 需要为 `desktop-visual-draft` 准备可生成图像的 draft-ready brief
 - 需要为 redesign、native feel、layout、typography、motion、brand 或 `DESIGN.md` 提供方向输入
-- `desktop-design-read` 的 `next_routes` 包含 brand、redesign、layout、motion、typography 或 `DESIGN.md`
+- `desktop-design-read` 的 `next_routes` 包含 brand、visual draft、redesign、layout、motion、typography 或 `DESIGN.md`
 
 ## 不适用场景
 
@@ -40,6 +41,7 @@ version: 0.2.0
 - `density` 与 `primary_interaction`
 - `design_thesis` 与 `anti_pattern`
 - 真实窗口结构：侧边栏、工具栏、表格、Inspector、画布、命令面板、状态栏等
+- 设计稿需求存在时的 `target_surface`、`draft_state` 和 `draft_dimensions`
 
 如果用户只有文字需求，没有截图、运行中窗口、现有 UI 代码、`DESIGN.md` 或明确平台参考，本 Skill 可以作为后续实现的视觉/证据目标来源。输出后必须推荐一个方向，或等待用户选择方向；不要从未确认的方向直接进入大范围实现。
 
@@ -50,6 +52,7 @@ version: 0.2.0
 3. 每个方向都要有负约束：明确不应该像什么，以及哪些常见 AI UI 习惯会破坏它。
 4. 根据用户、平台、任务时长、数据量和输入方式推荐一个最佳方向。推荐要有理由，不要平均保留所有方向。
 5. 把方向落到桌面组件：窗口 chrome、标题栏、工具栏、侧边栏、表格、Inspector、panel reveal、selection、focus、empty/loading/error 状态。
+6. 如果下一步是 visual draft，把推荐方向压缩成 draft-ready brief：目标表面、窗口状态、尺寸、布局区域、材料 / 颜色、字体层级、要出现的状态和禁止项。
 
 ## 最佳实践
 
@@ -82,7 +85,8 @@ version: 0.2.0
 - [ ] 是否说明这个应用应该像什么、不应该像什么
 - [ ] 是否覆盖桌面组件和状态，而不是只谈颜色和氛围
 - [ ] 是否避免通用 Web、Mobile、landing page 和纯品牌设计语言
-- [ ] 是否能直接喂给 redesign、implementation 或 `DESIGN.md`
+- [ ] 下一步需要设计稿时，是否输出 draft-ready brief，而不是只给抽象风格词
+- [ ] 是否能直接喂给 visual draft、redesign、implementation 或 `DESIGN.md`
 
 ## 输出格式
 
@@ -133,7 +137,33 @@ Recommendation:
 - chosen_direction: <方向名>
 - why: <基于平台、用户、任务时长、数据密度和实现风险的理由>
 - tradeoffs: <放弃了什么>
-- next_routes: <redesign/native feel/layout/typography/motion/brand/DESIGN.md>
+- next_routes: <visual draft/redesign/native feel/layout/typography/motion/brand/DESIGN.md>
+
+Draft-Ready Brief:
+- chosen_direction: <方向名>
+- target_surface: <main window/settings/inspector/popover/dialog/tray popover/specific window>
+- draft_state: <draft-ready / blocked missing context>
+- draft_dimensions: <width x height / window ratio / preset>
+- platform_depth: <macOS-first / Windows-first / cross-platform desktop>
+- window_chrome: <titlebar/toolbar/sidebar/inspector/status bar/platform-specific boundaries>
+- layout_zones:
+  - <zone>: <role and content>
+- density: <calm / standard / dense / control-room>
+- materials_and_color: <Liquid Glass / Mica / Acrylic / native surfaces / accent and semantic color boundaries>
+- typography: <desktop hierarchy and density notes>
+- states_to_show:
+  - <populated/selected/error/loading/empty/focus/etc.>
+- must_include:
+  - <desktop components, real data pressure, signature moment>
+- must_avoid:
+  - <web landing/mobile/hero/card grid/fake glass/unreadable blur/macOS rules on Windows>
+
+Visual Draft Output:
+- artifact: <visual draft / brief-only / missing>
+- evidence_target: <visual draft / draft-ready brief>
+- usable_for:
+  - <redesign / layout / typography / motion / brand / DESIGN.md / QA>
+- desktop_boundary: macOS / Windows desktop surface only; no web landing, mobile screen, brand poster, hero page, or marketing card grid
 ```
 
 如果信息不足，仍给出保守方向，但在 `source_read` 或 `Recommendation` 中标注 `assumption`。不要用信息不足作为回避设计判断的理由。
