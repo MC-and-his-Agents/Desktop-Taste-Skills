@@ -29,8 +29,14 @@ The intended outcome is not simply “correct UI”. The intended outcome is des
 
 - `desktop-taste`: entry Skill for desktop UI/UX task recognition, boundary checks, and route selection.
 - `desktop-design-read`: pre-implementation desktop design read covering platform, app type, user, session context, density, interaction model, risks, and next routes.
+- `desktop-art-direction`: produces 2-3 concrete desktop art directions with thesis, fit, anti-patterns, and signature moments.
+- `desktop-native-feel`: checks whether macOS or Windows UI feels like real desktop software instead of a web shell.
+- `desktop-layout-composition`: chooses desktop window layouts, zones, and component tradeoffs for real workflows and data.
+- `desktop-typography-density`: calibrates type hierarchy, spacing, text roles, tables, lists, and density levels.
+- `desktop-motion-interaction`: designs and reviews desktop motion, interaction states, feedback, undo/redo, and reduced-motion behavior.
+- `desktop-brand-system`: keeps product expression inside useful desktop UI rather than turning the app into marketing surface.
 
-Current routes cover audit, redesign, native feel, layout, typography, motion, brand, and `DESIGN.md`. Specialized Skills for those routes are separate follow-up work.
+Current routes cover audit, redesign, native feel, layout, typography, motion, brand, and `DESIGN.md`. Audit, redesign, and `DESIGN.md` output Skills are still planned follow-up work.
 
 ## What this is not for
 
@@ -71,8 +77,7 @@ versions, missing files, or manifest paths that point outside the repository.
 3. Refresh or reinstall the plugin in Codex from the same repository root.
 4. Re-run `python3 scripts/validate_repo.py`.
 
-This repository currently allows an empty `skills/` directory or no `skills/`
-directory. Once a Skill is published, its `skills/<name>/SKILL.md` frontmatter
+Each published Skill lives in `skills/<name>/SKILL.md`, and its frontmatter
 must include `name`, `description`, and `version`.
 
 ## Platform handling

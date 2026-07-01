@@ -29,8 +29,14 @@ Desktop Taste Skills 是一个 Codex 插件，包含多项可移植的桌面 UI/
 
 - `desktop-taste`：入口 Skill，用于桌面 UI/UX 任务识别、边界检查和路由选择。
 - `desktop-design-read`：设计前置判断 Skill，在实现前输出平台、应用类型、用户、使用场景、密度、交互方式、主要风险和后续路由。
+- `desktop-art-direction`：输出 2-3 个具体桌面设计方向，包含设计主张、适用边界、反模式和标志性体验瞬间。
+- `desktop-native-feel`：判断 macOS 或 Windows UI 是否像真实桌面软件，而不是网页包壳。
+- `desktop-layout-composition`：选择桌面窗口布局、区域结构和关键组件取舍，确保能承载真实工作流和数据。
+- `desktop-typography-density`：校准文字层级、间距、文字角色、表格、列表和信息密度。
+- `desktop-motion-interaction`：设计和审查桌面动效、交互状态、反馈、撤销 / 重做和减少动态效果。
+- `desktop-brand-system`：让产品表达留在有用的桌面 UI 内，而不是把应用变成营销页面。
 
-当前路由覆盖 audit、redesign、native feel、layout、typography、motion、brand 和 `DESIGN.md`。这些专项 Skill 属于后续工作，本 PR 不实现。
+当前路由覆盖 audit、redesign、native feel、layout、typography、motion、brand 和 `DESIGN.md`。audit、redesign 和 `DESIGN.md` 输出 Skill 仍是后续工作。
 
 ## 不适用场景
 
@@ -67,7 +73,7 @@ Desktop Taste Skills 不是通用工程手册，不是移动或 Web 设计工具
 3. 在 Codex 中从同一个仓库根目录刷新或重新安装插件。
 4. 重新运行 `python3 scripts/validate_repo.py`。
 
-当前仓库允许没有 `skills/` 目录，或 `skills/` 目录为空。一旦发布 Skill，其 `skills/<name>/SKILL.md` frontmatter 必须包含 `name`、`description` 和 `version`。
+每个已发布 Skill 位于 `skills/<name>/SKILL.md`，其 frontmatter 必须包含 `name`、`description` 和 `version`。
 
 ## 平台处理
 
