@@ -2,6 +2,33 @@
 
 本文件记录对安装、升级和发布说明有影响的变更。每个版本保留以下分类：插件变更、Skill 变更、修复、破坏性变更、迁移要求。
 
+## [0.3.0] - 2026-07-01
+
+### 插件变更
+
+- 发布第一批桌面专项 Skill，覆盖 art direction、native feel、layout、typography、motion 和 brand 六条路线。
+
+### Skill 变更
+
+- 新增 `desktop-art-direction@0.1.0`，用于提出 2-3 个桌面应用设计方向并定义设计主张。
+- 新增 `desktop-native-feel@0.1.0`，用于判断 macOS / Windows 桌面应用是否像真实原生软件。
+- 新增 `desktop-layout-composition@0.1.0`，用于选择桌面窗口布局类型、区域结构和关键组件取舍。
+- 新增 `desktop-typography-density@0.1.0`，用于校准桌面应用排版、间距和信息密度。
+- 新增 `desktop-motion-interaction@0.1.0`，用于设计和审查桌面动效、状态反馈与交互手感。
+- 新增 `desktop-brand-system@0.1.0`，用于把品牌表达限制在桌面工作流和产品 UI 内。
+
+### 修复
+
+- 无。
+
+### 破坏性变更
+
+- 无。
+
+### 迁移要求
+
+- 无。
+
 ## [0.2.0] - 2026-07-01
 
 ### 插件变更

@@ -1,6 +1,6 @@
 {
   "name": "desktop-taste",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Desktop UI/UX taste skills for coding Agents building macOS and Windows applications.",
   "skills": "./skills/",
   "author": {
