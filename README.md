@@ -25,6 +25,13 @@ The suite helps the Agent reason about:
 
 The intended outcome is not simply “correct UI”. The intended outcome is desktop UI with taste: useful, durable, distinctive, coherent, and implementation-ready.
 
+## Skills
+
+- `desktop-taste`: entry Skill for desktop UI/UX task recognition, boundary checks, and route selection.
+- `desktop-design-read`: pre-implementation desktop design read covering platform, app type, user, session context, density, interaction model, risks, and next routes.
+
+Current routes cover audit, redesign, native feel, layout, typography, motion, brand, and `DESIGN.md`. Specialized Skills for those routes are separate follow-up work.
+
 ## What this is not for
 
 Desktop Taste Skills is not a general engineering handbook, a mobile or web design toolkit, or a brand/marketing design system without desktop app UI context.
