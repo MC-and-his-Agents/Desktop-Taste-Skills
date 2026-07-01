@@ -21,6 +21,8 @@
 | `no focus state` | 键盘移动时当前位置不可见，或 focus 只复用 hover 样式；高对比/深色模式下焦点消失。 | 使用平台风格 focus ring 或等效焦点层；逐屏测试键盘遍历，保证焦点不被裁切、不被 hover 覆盖。 |
 | `no selected/active distinction` | hover、focus、selected、active、disabled 使用同一种颜色或 opacity；窗口失焦后当前选择无法识别。 | 明确状态语义：selected 表示持久选择，active 表示按下/执行中，focus 表示键盘位置，hover 只表示指针经过。 |
 | `platform-neutral` | macOS 和 Windows 共用一套窗口控制、菜单、快捷键、焦点、滚动条、字体和 dialog 行为，结果两边都不像桌面应用。 | 写明平台策略：macOS 优先、Windows 优先或 cross-platform 折中；保留对应窗口 chrome、菜单/命令、快捷键、系统字体、accent、reduced motion 和 high contrast。 |
+| `fake Liquid Glass` | macOS-first 界面用手绘半透明层、重复 blur、发光边框或暗色 scrim 冒充系统 Liquid Glass；正文、表格、代码、错误、focus ring 或 selected state 被材料遮掉。 | 先使用系统 toolbar、sidebar、sheet、popover 和材料；只在局部 signature surface 自定义，并提高数据区、表单区和错误区的不透明度与对比。 |
+| `macOS rules on Windows` | 把 Liquid Glass、macOS toolbar/sidebar 或 AppKit 边界当作跨平台默认，导致 Windows title bar、command bar、context menu、快捷键、Mica / Acrylic 或 Fluent 预期丢失。 | 在 Desktop Read 中标出 macOS-first、Windows-first 或 cross-platform desktop；Windows-first 保留 Windows 原生结构和系统主题。 |
 
 ## 审计输出模板
 
@@ -28,6 +30,7 @@
 Desktop Anti-Slop:
 - target: <screen/window/flow>
 - platform_strategy: <macOS / Windows / cross-platform>
+- platform_depth: <macOS-first / Windows-first / cross-platform desktop>
 - density: <calm / standard / dense / control-room>
 - result: <pass / fail>
 - blockers:

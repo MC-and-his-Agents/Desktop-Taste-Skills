@@ -1,7 +1,7 @@
 ---
 name: desktop-native-feel
 description: 判断并改进 macOS / Windows 桌面应用的原生感，避免界面像网页包壳。
-version: 0.1.0
+version: 0.2.0
 ---
 
 # Desktop Native Feel
@@ -36,6 +36,7 @@ version: 0.1.0
 在分析前必须引用已有 `Desktop Read`。如果当前任务还没有 `Desktop Read`，先运行 `desktop-design-read`，至少确认：
 
 - `platform`: macOS、Windows 或 cross-platform
+- `platform_depth`: macOS-first、Windows-first 或 cross-platform desktop
 - `app_archetype` 与真实工作流
 - `density` 与主要交互方式
 - `main_risks` 中是否包含网页壳、平台感缺失、状态缺失或真实数据下失效
@@ -44,7 +45,7 @@ version: 0.1.0
 
 按下面顺序判断，不要直接从颜色或圆角开始：
 
-1. **平台策略**：先决定这是 macOS 优先、Windows 优先，还是跨平台折中。跨平台不等于压平成通用 Web UI；可共享信息架构，但窗口 chrome、菜单、快捷键和焦点反馈要尊重平台习惯。
+1. **平台策略**：先决定这是 macOS-first、Windows-first，还是 cross-platform desktop。跨平台不等于压平成通用 Web UI；可共享信息架构，但窗口 chrome、菜单、快捷键和焦点反馈要尊重平台习惯。
 2. **窗口结构**：确认窗口角色、标题栏、工具栏、状态栏、侧边栏、split view、inspector 和主内容区是否组成真实桌面工作区，而不是一张网页卡片。
 3. **系统入口**：检查菜单栏 / 应用菜单、右键菜单、快捷键、settings、dialog、sheet、popover 是否符合平台预期。
 4. **输入与状态**：逐一检查 focus、hover、selected、active、disabled、drag-over、loading、empty、error、success、undo / redo。原生感常败在状态缺失，而不是配色。
@@ -59,6 +60,22 @@ version: 0.1.0
 - macOS 保留左侧 traffic lights 和应用菜单；Windows 保留右侧最小化 / 最大化 / 关闭按钮和窗口命令习惯。
 - 标题栏只放窗口身份、关键文档状态和少量全局命令；不要塞营销标题或网页 hero。
 - 窗口大小、位置、焦点恢复和多显示器行为应可预测。
+
+### macOS Native Depth
+
+- Liquid Glass 是现代 macOS UI 的一等材料策略，优先用于系统支持的 toolbar、sidebar、sheet、popover、utility surface 和窗口层级；它不是跨平台默认风格。
+- 先使用系统提供的 SwiftUI / AppKit 控件和材料，让 NavigationSplitView、toolbar、sheet、popover、Inspector 等原生结构自然获得现代 macOS 外观，再考虑自定义 glass surface。
+- Liquid Glass 必须服务层级、连续性和可读性：正文、表格、代码、日志、错误和表单区域不能因为透明、模糊或背景延展而降低对比。
+- 大型 sidebar、Inspector 或数据区需要更高不透明度和稳定文本层级；不要为了“玻璃感”让选中态、错误态、焦点环和语义色被材料吞掉。
+- 自定义 Liquid Glass 只用于产品确实需要的局部 signature surface；不要手绘假玻璃、叠加暗色 scrim、重复模糊层或自绘窗口 chrome。
+- macOS-first 不等于忽略 Windows。只有目标平台或 Desktop Read 明确为 macOS-first 时，才把 Liquid Glass 作为优先策略。
+
+### SwiftUI First / AppKit Narrow Bridge
+
+- SwiftUI / 原生场景优先：先检查 scene、toolbar、commands、settings、NavigationSplitView、Inspector、popover、sheet 和系统控件是否已经覆盖需求。
+- AppKit 只作为窄 escape hatch：用于 NSWindow / NSPanel、responder chain、menu validation、representable、pasteboard、精细 drag/drop 或 SwiftUI 无法表达的文本系统行为。
+- 桥接边界必须小而明确：SwiftUI 保持状态源，AppKit 包在 representable、coordinator 或单一 helper 内；不要让 NSWindow、NSView 或 coordinator 穿透多层视图树。
+- 如果只是为了视觉效果、固定尺寸、隐藏标题、模拟材料或绕过布局问题而引入 AppKit，优先退回 SwiftUI / 原生窗口和材料规则。
 
 ### 工具栏与菜单
 
@@ -101,6 +118,9 @@ version: 0.1.0
 发现以下问题时直接指出，并给出最小修正：
 
 - 手绘标题栏、手绘窗口控制、CSS window shadow 或固定圆角冒充系统窗口
+- macOS-first 界面不用系统 toolbar、sidebar、sheet 或 popover，却手绘 Liquid Glass / 毛玻璃来冒充原生材料
+- 为了玻璃效果牺牲正文、表格、代码、错误、focus ring、selected state 或语义色可读性
+- 视觉需求不明确却把 AppKit 对象散布到 SwiftUI 视图树中，造成重复状态源或无法维护的 bridge
 - macOS / Windows 共用一套快捷键、菜单和窗口控制位置
 - 把桌面工具做成 landing page：大 hero、巨型卡片、过度留白、装饰渐变
 - 所有可点元素统一 `cursor: pointer`、统一 hover 背景、统一圆角按钮
@@ -115,7 +135,9 @@ version: 0.1.0
 交付前至少检查这些项，并只汇报与当前任务相关的失败项：
 
 - [ ] 平台策略明确：macOS、Windows 或 cross-platform 折中
+- [ ] 平台深度明确：macOS-first、Windows-first 或 cross-platform desktop；macOS 深度规则没有误套到 Windows
 - [ ] 窗口、标题栏、工具栏、菜单和右键菜单符合目标平台
+- [ ] macOS-first 时已考虑 Liquid Glass、SwiftUI scene/window、toolbar/sidebar/Inspector 和 AppKit narrow bridge 边界
 - [ ] popover、dialog、sheet 的关闭、取消和阻塞语义正确
 - [ ] sidebar、split view、inspector 的选中、空状态和 resize 行为明确
 - [ ] focus、hover、selected、active、disabled 状态可区分
@@ -131,7 +153,12 @@ version: 0.1.0
 ```text
 Desktop Native Feel:
 - platform_strategy: <macOS / Windows / cross-platform, with reason>
+- platform_depth: <macOS-first / Windows-first / cross-platform desktop>
 - native_thesis: <一句话说明这个界面应像哪类桌面应用>
+- macos_native_depth:
+  - liquid_glass: <used/avoided + reason>
+  - swiftui_first: <scene/toolbar/commands/inspector/settings 等判断>
+  - appkit_bridge: <not needed / narrow bridge + ownership boundary>
 - keep_native:
   - <必须保留的平台习惯>
 - product_expression:

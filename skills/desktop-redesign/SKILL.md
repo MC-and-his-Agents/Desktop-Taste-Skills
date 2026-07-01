@@ -1,7 +1,7 @@
 ---
 name: desktop-redesign
 description: 将 macOS 和 Windows 桌面应用审计诊断转成可实现的 redesign 方案。
-version: 0.2.0
+version: 0.3.0
 ---
 
 # Desktop Redesign
@@ -35,6 +35,7 @@ version: 0.2.0
 开始前必须引用或补齐这些输入：
 
 - `Desktop Read`：至少包含 `platform`、`app_archetype`、`user_role`、`session_context`、`density`、`primary_interaction`、`design_thesis`、`anti_pattern` 和 `main_risks`。
+- 平台深度：macOS-first、Windows-first 或 cross-platform desktop；macOS-first 时必须保留 Liquid Glass、scene/window、toolbar/sidebar/Inspector 和 AppKit 边界判断，Windows-first 时不得套用 macOS 材料规则。
 - 现有界面证据：截图、运行中的窗口、代码中的 UI 结构、用户描述或可复现路径。
 - `desktop-audit` 结论：如果已有审计，消费其 findings、severity、证据和建议；如果没有，先做最小诊断，不假装已有审计。
 - 约束：必须保留的功能、数据、命令、快捷键、平台、技术栈和不能触碰的文件。
@@ -63,6 +64,7 @@ version: 0.2.0
 ### Layout
 
 - 选择一个主布局类型：utility window、sidebar app、two-pane、three-pane、inspector layout、command-first、editor workbench、creative canvas、data cockpit、monitoring console、settings、tray popover、tabbed workspace 或 multi-document。
+- macOS-first 时先判定窗口 / scene 角色：WindowGroup 主窗口、Window 辅助窗口、Settings、MenuBarExtra 或 DocumentGroup；再决定 title / toolbar、sidebar、Inspector、popover、sheet、resize、restoration 和 placement。
 - 明确保留、移动、合并或删除的区域：title / toolbar、sidebar、main workspace、Inspector、bottom panel、status bar。
 - 用真实数据压力测试空态、1 条、10 条、100+ 条、长名称、多选、错误、权限和后台任务。
 - 避免把 redesign 变成 card grid、dashboard、网页首页或营销 hero。
@@ -71,6 +73,7 @@ version: 0.2.0
 
 - 把现有功能映射到桌面组件：toolbar、menu、context menu、segmented control、list、table、tree、splitter、popover、dialog、sheet、Inspector、command palette、status bar。
 - 同一命令在 menu、toolbar、context menu 和 command palette 中保持名称、快捷键和禁用条件一致。
+- macOS toolbar、sidebar 和 Inspector 优先使用系统语义；不要为了视觉统一把 source list 改成卡片墙，或让 Inspector 承担主任务。
 - 表格、列表、树、Inspector 和设置表单必须有 clear empty / loading / error / disabled / selected 状态。
 - 不为单一页面创建抽象组件库；只抽出重复出现、语义稳定的桌面组件。
 
@@ -91,6 +94,8 @@ version: 0.2.0
 ### Visual Strategy
 
 - 先引用 `desktop-native-feel` 判断平台习惯，再决定哪些区域可表达产品语言。
+- macOS-first 时把 Liquid Glass 当作优先材料策略，但只用于合适的系统表面和层级；正文、数据、代码、表单和错误区域必须保持可读。
+- AppKit escape hatch 必须说明 owner、状态源和回退条件；不为纯视觉效果扩散 AppKit。
 - 先引用 `desktop-layout-composition` 确定窗口结构和真实数据承载，再做视觉层级。
 - 先引用 `desktop-typography-density` 确定密度、字号、行高、表格 / 列表节奏，再调整留白。
 - 先引用 `desktop-motion-interaction` 确定状态反馈和转场语义，再写 easing 或 duration。
@@ -118,6 +123,7 @@ version: 0.2.0
 - 0 / 1 / 多条真实数据、长文本、多选、错误、权限、同步和后台任务都有可见处理。
 - 窗口缩放、splitter、滚动区域、焦点、selected、hover、disabled 和 context menu 可用。
 - macOS / Windows 平台习惯、系统主题、accent color、high contrast 和 reduced motion 已考虑。
+- macOS-first 已验证 scene/window 角色、toolbar/title、sidebar/Inspector、Liquid Glass 可读性和 AppKit bridge 边界。
 - 视觉策略没有落回 Web dashboard、card grid、hero、过度玻璃、品牌色滥用或营销文案。
 
 ## 反模式
@@ -130,6 +136,8 @@ version: 0.2.0
 - 先建一套抽象设计系统，再回头找使用场景
 - 为了统一跨平台而牺牲 macOS / Windows 的窗口、菜单、焦点和快捷键预期
 - 用大渐变、毛玻璃、插画、空状态文案或动效掩盖工作区不可用
+- 为了 Liquid Glass 或自绘 chrome 破坏 macOS 系统 toolbar、sidebar、sheet、popover、focus 或语义状态
+- AppKit bridge 没有明确 owner，重复 SwiftUI 状态源，或把 NSWindow / NSView 泄漏到无关视图层
 - 忽略已有 audit 证据，重新凭感觉做一份不相关设计
 
 ## 输出格式
@@ -138,6 +146,7 @@ version: 0.2.0
 Desktop Redesign:
 - source_read:
   - platform: <Desktop Read platform>
+  - platform_depth: <macOS-first / Windows-first / cross-platform desktop>
   - app_archetype: <Desktop Read app_archetype>
   - density: <Desktop Read density>
   - primary_interaction: <Desktop Read primary_interaction>
@@ -151,6 +160,8 @@ Desktop Redesign:
   - <audit finding 或风险> -> <布局/组件/状态/交互/视觉策略>
 - layout_strategy:
   - chosen_layout: <layout type>
+  - scene_window_role: <macOS scene/window 或 Windows/cross-platform 窗口角色>
+  - lifecycle: <resize/restoration/placement/multi-window/settings entry>
   - zone_changes: <保留/移动/合并/新增/删除的窗口区域>
 - component_strategy:
   - <toolbar/menu/list/table/tree/inspector/palette/dialog/status bar 等映射>
@@ -160,6 +171,8 @@ Desktop Redesign:
   - <keyboard/mouse/context menu/drag/splitter/panel/reduced motion>
 - visual_strategy:
   - native feel: <平台判断>
+  - liquid_glass: <macOS-first 时的材料策略；其他平台写 not applicable>
+  - appkit_boundary: <not needed / narrow bridge + owner/state source>
   - layout: <构图判断>
   - typography: <密度与层级判断>
   - motion: <反馈判断>

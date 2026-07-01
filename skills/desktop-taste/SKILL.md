@@ -1,7 +1,7 @@
 ---
 name: desktop-taste
 description: 识别 macOS 和 Windows 桌面 UI/UX 任务并路由到合适的桌面设计能力。
-version: 0.2.0
+version: 0.3.0
 ---
 
 # Desktop Taste 入口
@@ -39,10 +39,11 @@ version: 0.2.0
 1. 先判断是否属于桌面 UI/UX。
 2. 若属于，先查找当前任务直接相关的桌面上下文：现有 `DESIGN.md`、截图、运行中窗口、UI 代码路径、tokens、样式表、组件、平台约束或已选设计方向；只读相关材料，不全仓库漫游，也不建立 Product Design 式 saved context 或 onboarding 流程。
 3. 运行 `desktop-design-read` 作为 brief gate，产出可引用的 Desktop Read。关键信息缺失时先问缺口；信息足够时回放判断，不重复提问。
-4. 大范围实现、redesign 或 `DESIGN.md` 生成前，必须绑定桌面视觉/证据目标：截图、运行中窗口、现有 UI 代码路径、已有 `DESIGN.md`、平台参考、用户提供的设计约束，或已选 `desktop-art-direction`。小型机械修正可用当前代码和用户描述作为证据目标。
-5. 证据目标不要求 ImageGen、Figma 或 Web prototype；只有用户明确要求视觉探索时，才把 `desktop-art-direction` 作为方向来源。
-6. 再按下方路由选择后续能力。若对应专项 Skill 尚未存在或未安装，只记录路由需求，不假装已经加载。
-7. 最后实现、审计、QA 或文档化时，保持 macOS / Windows 桌面应用视角。
+4. 同时判断平台深度：`macOS-first`、`Windows-first` 或 `cross-platform desktop`。macOS-first 可以进入 Liquid Glass、SwiftUI scene/window、AppKit 边界和 toolbar/sidebar/inspector 深度；Windows-first 必须保留 Windows title bar、command bar、context menu、快捷键、系统主题和 Fluent / Mica / Acrylic 预期。
+5. 大范围实现、redesign 或 `DESIGN.md` 生成前，必须绑定桌面视觉/证据目标：截图、运行中窗口、现有 UI 代码路径、已有 `DESIGN.md`、平台参考、用户提供的设计约束，或已选 `desktop-art-direction`。小型机械修正可用当前代码和用户描述作为证据目标。
+6. 证据目标不要求 ImageGen、Figma 或 Web prototype；只有用户明确要求视觉探索时，才把 `desktop-art-direction` 作为方向来源。
+7. 再按下方路由选择后续能力。若对应专项 Skill 尚未存在或未安装，只记录路由需求，不假装已经加载。
+8. 最后实现、审计、QA 或文档化时，保持 macOS / Windows 桌面应用视角；macOS-strong 不等于 macOS-only。
 
 ## 路由表
 
@@ -67,6 +68,7 @@ Desktop Taste Routing:
 - applies: yes/no
 - reason: <一句话说明>
 - desktop_read: required/skipped
+- platform_depth: <macOS-first / Windows-first / cross-platform desktop>
 - evidence_target: <screenshot/runtime/code/DESIGN.md/reference/art direction/user description>
 - routes: <audit/redesign/native feel/layout/typography/motion/brand/QA/DESIGN.md>
 - out_of_scope: <不处理的非桌面范围>

@@ -18,6 +18,7 @@ Desktop Taste Skills 是一个 Codex 插件，包含多项可移植的桌面 UI/
 - 截图、运行中窗口、代码路径、`DESIGN.md`、参考应用或已选设计方向等视觉 / 证据目标
 - 应用类型与工作流上下文
 - macOS、Windows 或跨平台预期
+- macOS Native Depth：Liquid Glass、SwiftUI scene/window 角色、原生 toolbar/sidebar/inspector 模式和窄 AppKit escape hatch
 - 具有原生感的窗口、侧边栏、工具栏、检查器、菜单、对话框、弹出层、命令面板、表格和工作台布局
 - 信息密度与长时间使用舒适性
 - 排版层级与间距节奏
@@ -32,14 +33,14 @@ Desktop Taste Skills 是一个 Codex 插件，包含多项可移植的桌面 UI/
 - `desktop-taste`：入口 Skill，用于桌面 UI/UX 任务识别、边界检查和路由选择。
 - `desktop-design-read`：桌面 brief gate，在实现前输出平台、应用类型、用户、使用场景、密度、交互方式、证据目标、主要风险和后续路由。
 - `desktop-art-direction`：输出 2-3 个具体桌面设计方向，包含设计主张、适用边界、反模式和标志性体验瞬间。
-- `desktop-native-feel`：判断 macOS 或 Windows UI 是否像真实桌面软件，而不是网页包壳。
-- `desktop-layout-composition`：选择桌面窗口布局、区域结构和关键组件取舍，确保能承载真实工作流和数据。
+- `desktop-native-feel`：判断 macOS 或 Windows UI 是否像真实桌面软件，而不是网页包壳；需要时覆盖 macOS Liquid Glass 和 AppKit 边界。
+- `desktop-layout-composition`：选择桌面窗口布局、区域结构、scene/window 角色和关键组件取舍，确保能承载真实工作流和数据。
 - `desktop-typography-density`：校准文字层级、间距、文字角色、表格、列表和信息密度。
 - `desktop-motion-interaction`：设计和审查桌面动效、交互状态、反馈、撤销 / 重做和减少动态效果。
 - `desktop-brand-system`：让产品表达留在有用的桌面 UI 内，而不是把应用变成营销页面。
 - `desktop-audit`：审计已有桌面 UI，输出问题诊断、保留项、修正项和实现后检查项。
 - `desktop-redesign`：把审计发现转成可实现的布局、组件、状态、交互和视觉策略。
-- `desktop-qa`：在交付前检查已实现桌面 UI 是否符合 Desktop Read、证据目标、原生感、布局、密度、状态、键盘路径、真实数据和主题要求。
+- `desktop-qa`：在交付前检查已实现桌面 UI 是否符合 Desktop Read、证据目标、原生感、布局、密度、状态、键盘路径、真实数据、主题要求，以及适用的 macOS Native Depth。
 - `desktop-design-md`：为用户项目生成或更新桌面版 `DESIGN.md`。
 
 可复用模板位于 `templates/`，覆盖桌面版 `DESIGN.md`、Desktop Read、评审和 anti-slop 检查。
@@ -87,13 +88,17 @@ Desktop Taste Skills 不是通用工程手册，不是移动或 Web 设计工具
 
 Desktop Taste Skills 面向 macOS 与 Windows。
 
+插件可以 macOS-strong，但不能 macOS-only。macOS 任务需要时应更深入：Liquid Glass 是现代 macOS 的一等材料策略，SwiftUI scene/window 角色应明确，AppKit 只作为真实平台能力缺口的窄边界。上述 macOS 规则不能自动套用到 Windows。
+
 Agent 应：
 
 - 说明某个决策是 macOS 特定、Windows 特定，还是跨平台折中
+- 说明当前任务是 macOS-first、Windows-first，还是 cross-platform desktop 折中
 - 当平台预期能提升可用性时，保留平台预期
 - 当产品必须跨平台发布时，允许有品味的跨平台折中
 - 避免把 macOS 和 Windows 压平成通用的 Web 式 UI
 - 解释原生感模式背后的设计原则，而不是盲目复制截图
+- 当目标是 Windows 时，继续保留 Windows title bar、command bar、context menu、快捷键、Mica/Acrylic 或系统主题、Fluent 预期
 
 ## 版本管理
 

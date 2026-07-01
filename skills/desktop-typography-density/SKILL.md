@@ -1,7 +1,7 @@
 ---
 name: desktop-typography-density
 description: 校准 macOS 和 Windows 桌面应用的 typography、spacing 与 density。用于处理字号层级、文字角色、行高、表格/列表密度、工具栏标签、元信息、状态/错误文案、代码/日志文本，以及避免网页营销页式大标题、过大留白、低密度表格和小字号不可读的问题。
-version: 0.1.0
+version: 0.2.0
 ---
 
 # Desktop Typography Density
@@ -15,6 +15,7 @@ version: 0.1.0
 - 用户要求调整字号、行高、留白、表格密度、列表密度、层级、可读性或信息密度
 - 界面像 landing page、SaaS 首页、卡片太松、标题过大、真实数据放不下
 - 需要定义或审查 app title、window title、toolbar label、section label、sidebar item、body、metadata、table/list row、code/log、caption、status、error 的文字规则
+- macOS-first 界面需要校准 source-list row、Inspector 表单、toolbar label、metadata、Liquid Glass 表面上的可读性
 - 需要生成或更新桌面应用 `DESIGN.md` 中的 Typography 或 Spacing & Density 部分
 
 ## 不适用场景
@@ -67,6 +68,10 @@ version: 0.1.0
 - 标题服务定位，不服务震撼；桌面 app 的主界面通常不需要 hero-scale type。
 - 表格和列表先为真实数据设计：列标题、行高、单元格内边距、截断、排序和选中态一起考虑。
 - `dense` 和 `control-room` 可以更紧，但不能牺牲命中目标、焦点态、错误可读性和长时间使用舒适度。
+- macOS source-list 行保持轻量：一个图标、一个主标题、一条可选辅助信息通常足够；丰富 metadata 放到 detail 或 Inspector。
+- Inspector 表单使用清晰分组、稳定 label 宽度、短说明和靠近字段的错误；不要把主工作流藏进 Inspector。
+- toolbar label 必须短，优先图标 + tooltip 或短动词；不要让长标签挤压搜索、状态或窗口操作区。
+- Liquid Glass 或其他材料表面上的文字要优先保证对比；正文、表格、代码、错误和状态不为材料效果降级。
 - 元信息、caption、status 可以小一档或弱一档，但不能低到用户需要贴近屏幕才能读。
 - 面板之间用结构、边框、标题和对齐建立关系；不要靠大留白假装高级。
 - 长文本优先折行或截断策略；路径、日志、代码优先保留可复制性和对齐。
@@ -78,6 +83,9 @@ version: 0.1.0
 - 表格行高过大、列间距过宽，真实数据一多就只能滚动。
 - 为了“高级感”把正文、metadata、caption 或日志降到不可读小字号。
 - toolbar label 过长，挤压搜索框、分段控件、状态或窗口操作区。
+- source-list row 被塞满多列 metadata、重复图标、时间戳或三行以上文本，失去 macOS 侧边栏密度和选中节奏。
+- Inspector 表单过松、label 不对齐，或错误说明远离对应字段。
+- Liquid Glass / 毛玻璃导致小字号、metadata、错误和状态文本低对比。
 - section label 太大太重，让每个面板都像页面标题。
 - 错误只用颜色表达，或把恢复动作藏在远离错误源的位置。
 
@@ -87,6 +95,7 @@ version: 0.1.0
 
 - 已选择 `calm` / `standard` / `dense` / `control-room`，且理由来自真实工作流
 - app title、window title、toolbar label、section label、sidebar item、body、metadata、table/list row、code/log、caption、status、error 都有明确层级或处理策略
+- macOS-first 时 source-list、Inspector、toolbar label 和材料表面上的小字仍可读
 - 没有网页营销页式大标题、过大留白、低密度表格或不可读小字号
 - 表格/列表在真实数据量下仍能扫描、比较、选择和操作
 - 状态与错误靠近对象，文案短且能指导下一步
@@ -109,6 +118,8 @@ Typography Density:
   - body: <处理>
   - metadata: <处理>
   - table/list row: <处理>
+  - source-list row: <macOS-first 时的处理>
+  - inspector form: <macOS-first 时的处理>
   - code/log: <处理>
   - caption: <处理>
   - status: <处理>

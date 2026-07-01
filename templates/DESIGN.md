@@ -14,6 +14,7 @@
 
 - source_read: <引用 Desktop Read 的关键判断或链接>
 - platform: <macOS / Windows / cross-platform>
+- platform_depth: <macOS-first / Windows-first / cross-platform desktop>
 - app_archetype: <工具 / 编辑器 / 工作台 / 控制台 / 数据库客户端 / 创作工具等>
 - user_role: <用户角色>
 - session_context: <短任务 / 长时间工作 / 批量处理 / 深度创作等>
@@ -31,9 +32,9 @@
 
 ## 2. 平台目标
 
-<说明目标平台策略：macOS 优先、Windows 优先，还是 cross-platform 折中。跨平台不等于 Web UI。>
+<说明目标平台策略：macOS-first、Windows-first，还是 cross-platform desktop。跨平台不等于 Web UI；macOS-strong 也不等于 macOS-only。>
 
-- macOS: <窗口 chrome、菜单、toolbar、快捷键、系统材质和 focus 规则>
+- macOS: <窗口 chrome、菜单、toolbar、快捷键、Liquid Glass、系统材质、scene/window 和 focus 规则>
 - Windows: <title bar、command bar、context menu、快捷键、Mica/Acrylic 或系统主题规则>
 - shared_rules: <两平台共享的信息架构和状态语义>
 - platform_differences: <必须分平台处理的行为>
@@ -43,6 +44,7 @@
 <说明窗口和表面如何组成桌面工作区。先决定窗口角色，再决定表面层级。>
 
 - primary_window: <主窗口职责、最小尺寸、默认尺寸、恢复行为>
+- macos_scene_window: <WindowGroup / Window / Settings / MenuBarExtra / DocumentGroup / not applicable，以及 placement、restoration、resize、多窗口策略>
 - title_bar: <窗口标题、文档状态、拖拽区域、窗口控制边界>
 - toolbar: <高频命令、搜索、过滤、视图切换和禁用态>
 - sidebar: <导航或对象集合；选中态、空态、折叠策略>
@@ -112,7 +114,7 @@
   - error: <规则>
   - danger: <规则>
   - info: <规则>
-- material_rules: <macOS vibrancy / Windows Mica-Acrylic / 自定义材质的使用边界>
+- material_rules: <macOS Liquid Glass / vibrancy、Windows Mica-Acrylic、自定义材质的使用边界；不得牺牲正文、表格、代码、错误和表单可读性>
 - theme_rules: <light、dark、high contrast、system accent 的适配>
 
 ## 8. 组件
@@ -122,9 +124,10 @@
 - command_palette: <打开、搜索、分组、快捷键、空结果和关闭规则>
 - menus_context_menus: <菜单项命名、快捷键、禁用条件和对象范围>
 - toolbar_buttons: <图标、标签、tooltip、selected/active/disabled>
-- sidebar_items: <hover、selected、focus、badge、空态>
+- sidebar_items: <source-list 密度、hover、selected、focus、badge、空态>
 - tables_lists_trees: <排序、筛选、列、选择、多选、空态、错误态>
 - inspector_fields: <分组、编辑、验证、恢复路径>
+- appkit_boundary: <macOS-first 时记录 not needed / narrow bridge、owner、状态源和回退条件>
 - forms_settings: <分类、保存、取消、危险操作>
 - notifications_feedback: <inline、status bar、system notification 的使用边界>
 
@@ -171,6 +174,7 @@
 - no_marketing_card_grid: <哪些区域不能做成卡片墙>
 - no_dashboard_by_default: <何时必须用 table/list/tree/workbench>
 - no_fake_native_chrome: <窗口控制、标题栏和系统菜单边界>
+- no_fake_liquid_glass: <禁止手绘假玻璃、过度透明、遮挡内容或让材料吞掉状态色>
 - no_missing_states: <必须实现的 loading、empty、error、selected、disabled、undo>
 - no_unreadable_density: <过松、过密和小字号风险>
 - no_brand_overreach: <品牌色、材质、插画和文案的禁区>
@@ -188,6 +192,7 @@
   - UI、业务逻辑、数据访问和外部 API 不混在同一模块。
   - 每个可操作状态至少覆盖 hover、focus、selected 或 disabled 中相关项。
   - 表格、列表、树和 Inspector 必须用真实数据压力检查。
+  - macOS-first 变更必须说明 scene/window 角色、Liquid Glass 使用边界、AppKit bridge owner 和 Windows 非适用范围。
 - review_checklist:
   - 窗口结构是否仍像桌面应用。
   - 平台快捷键、菜单、焦点和系统主题是否成立。

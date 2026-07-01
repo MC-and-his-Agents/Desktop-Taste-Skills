@@ -2,6 +2,36 @@
 
 本文件记录对安装、升级和发布说明有影响的变更。每个版本保留以下分类：插件变更、Skill 变更、修复、破坏性变更、迁移要求。
 
+## [0.6.0] - 2026-07-02
+
+### 插件变更
+
+- 增加 macOS Native Depth 能力：Desktop Taste 仍覆盖 macOS 与 Windows，但允许 macOS 侧更深，尤其是 Liquid Glass、SwiftUI scene/window、toolbar、sidebar、Inspector 和 AppKit 边界。
+- 明确 Liquid Glass 是现代 macOS UI 的一等材料策略；它不是跨平台默认风格，也不能牺牲内容可读性、状态语义或真实工作流。
+- 更新插件说明和默认提示，加入 macOS Native Depth 路由提示。
+
+### Skill 变更
+
+- 更新 `desktop-taste@0.3.0` 和 `desktop-design-read@0.3.0`，加入 macOS-first、Windows-first 和 cross-platform desktop 的平台深度判断。
+- 更新 `desktop-native-feel@0.2.0`，加入 Liquid Glass、SwiftUI first 和 AppKit narrow bridge 规则。
+- 更新 `desktop-layout-composition@0.2.0`，加入 macOS scene/window 角色、toolbar、sidebar、Inspector 和 command 取舍。
+- 更新 `desktop-typography-density@0.2.0` 和 `desktop-motion-interaction@0.2.0`，加入 macOS source-list、Inspector、toolbar label、focus、command 和 panel reveal 规则。
+- 更新 `desktop-brand-system@0.2.0`，加入 Liquid Glass / fake glass 材料护栏。
+- 更新 `desktop-redesign@0.3.0` 和 `desktop-design-md@0.2.0`，加入窗口生命周期、AppKit 边界与所有权规则。
+- 更新 `desktop-qa@0.2.0`，加入 macOS Native Depth 检查项，并要求不误伤 Windows 目标。
+
+### 修复
+
+- 无。
+
+### 破坏性变更
+
+- 无。
+
+### 迁移要求
+
+- 无。
+
 ## [0.5.0] - 2026-07-02
 
 ### 插件变更

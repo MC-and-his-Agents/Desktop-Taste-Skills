@@ -1,7 +1,7 @@
 ---
 name: desktop-qa
 description: 在桌面 UI 实现或重设计交付前，检查实现是否符合 Desktop Read、桌面证据目标、平台感、布局密度、状态、键盘路径、真实数据和主题要求。
-version: 0.1.0
+version: 0.2.0
 ---
 
 # Desktop QA
@@ -15,6 +15,7 @@ version: 0.1.0
 - 已完成桌面 UI 实现、重设计或修复，需要交付前检查
 - 需要确认实现没有偏离 Desktop Read、`DESIGN.md`、截图、运行中窗口、代码 UI 结构、平台参考或已选 art direction
 - 需要判断窗口缩放、键盘路径、状态、真实数据、主题和平台感是否足够交付
+- macOS-first 实现需要检查 Liquid Glass、scene/window、toolbar/title、drag region、resize/restoration、sidebar/Inspector、commands/focus 和 AppKit 边界
 - 需要把剩余 P0 / P1 / P2 问题转成最小修复清单
 
 ## 不适用场景
@@ -30,7 +31,7 @@ version: 0.1.0
 
 必须引用：
 
-- `Desktop Read`：platform、app_archetype、density、primary_interaction、main_risks 和 evidence_target。
+- `Desktop Read`：platform、platform_depth、app_archetype、density、primary_interaction、main_risks 和 evidence_target。
 - source evidence：截图、运行中窗口、现有 UI 代码、`DESIGN.md`、平台参考、用户描述或已选 art direction。
 - implementation evidence：实现后的截图、运行中窗口、代码路径或可复现路径。
 
@@ -54,6 +55,7 @@ version: 0.1.0
 - `real_data_readiness`: 0 / 1 / 10 / 100+ 条记录、长名称、多列、多选、排序、筛选、权限差异和后台任务。
 - `theme_accessibility`: light / dark、high contrast、reduced motion、系统 accent color 和可读性。
 - `brand_expression`: 品牌表达是否服务工作流，没有压过状态色、选择态和主工作区。
+- `macos_native_depth`: 仅在 macOS-first 时检查 Liquid Glass 使用边界、SwiftUI scene/window 角色、toolbar/title、drag region、resize/restoration、sidebar/Inspector、commands/focus、AppKit bridge owner 和 Windows 非适用范围。
 
 ## 反模式
 
@@ -63,6 +65,8 @@ version: 0.1.0
 - 把 QA 扩成完整 redesign，要求重做无关区域
 - 用单一 happy path 截图证明键盘、错误、真实数据或可访问性已经可用
 - 把 Web dashboard、landing hero、低密度卡片墙或平台中性 UI 当作桌面交付通过
+- macOS-first 没有检查 Liquid Glass 可读性、scene/window 角色或 AppKit bridge 边界就标记通过
+- 把 macOS Liquid Glass、toolbar/sidebar 或 AppKit 规则误判为 Windows 必须项
 
 ## 输出格式
 
@@ -71,6 +75,7 @@ Desktop QA:
 - result: <passed / blocked>
 - source_read:
   - platform: <Desktop Read platform>
+  - platform_depth: <macOS-first / Windows-first / cross-platform desktop>
   - app_archetype: <Desktop Read app_archetype>
   - density: <Desktop Read density>
   - primary_interaction: <Desktop Read primary_interaction>
@@ -97,6 +102,7 @@ Desktop Checks:
 - real_data_readiness: <pass / needs work / fail + note>
 - theme_accessibility: <pass / needs work / fail + note>
 - brand_expression: <pass / needs work / fail + note>
+- macos_native_depth: <pass / needs work / fail / not applicable + note>
 
 Implementation Checklist:
 - <按最小修复顺序列出>
@@ -116,5 +122,7 @@ Follow-up Polish:
 - [ ] 是否区分 source evidence 与 implementation evidence
 - [ ] 是否说明当前证据的 limits
 - [ ] 是否覆盖平台感、布局、密度、状态、键盘、真实数据和主题
+- [ ] macOS-first 时是否覆盖 Liquid Glass、scene/window、toolbar/title、drag region、resize/restoration、sidebar/Inspector、commands/focus 和 AppKit 边界
+- [ ] Windows-first 或 cross-platform 时是否说明 macOS Native Depth 检查为 not applicable 或仅作平台差异参考
 - [ ] 是否把 P0 / P1 / P2 转成最小修复清单
 - [ ] 是否避免把 QA 扩成无关 redesign 或 Web critique

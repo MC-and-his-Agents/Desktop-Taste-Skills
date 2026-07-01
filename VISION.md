@@ -10,6 +10,7 @@
 
 - 设计 macOS / Windows 桌面应用界面
 - 优化 Electron / Tauri / SwiftUI / AppKit / WinUI / WPF 应用 UI
+- 加强 macOS 原生深度：Liquid Glass、SwiftUI scene/window、AppKit 边界、toolbar、sidebar、Inspector
 - 重设计已有桌面应用
 - 让界面更原生、更有品味、更不像网页壳
 - 生成桌面应用设计规范
@@ -33,6 +34,7 @@
 核心分析应覆盖：
 
 - 目标平台：macOS、Windows、cross-platform
+- 平台深度：macOS-first、Windows-first、cross-platform desktop。插件可以 macOS-strong，但不能 macOS-only；Windows 覆盖仍必须保留。
 - 应用类型：工具、编辑器、工作台、启动器、控制台、数据库客户端、创作工具、AI workspace 等
 - 用户类型：普通用户、专业用户、开发者、创作者、研究人员、运营人员等
 - 使用场景：短任务、长时间工作、频繁切换、后台监控、批量处理、深度创作
@@ -100,6 +102,10 @@ not like <anti-pattern>.
 - 状态栏
 - 系统主题
 - 系统 accent color
+- macOS Liquid Glass：toolbar、sidebar、sheet、popover、utility surface、内容可读性和状态语义边界
+- macOS SwiftUI scene/window：WindowGroup、Window、Settings、MenuBarExtra、DocumentGroup、窗口恢复、placement、resize 和多窗口策略
+- AppKit narrow escape hatch：仅在 SwiftUI / 原生模式无法表达 NSWindow、NSPanel、responder chain、representable 等平台能力缺口时使用
+- Windows title bar、command bar、context menu、系统主题、Mica / Acrylic 或 Fluent 材质边界
 - reduced motion
 - high contrast
 - 键盘焦点
