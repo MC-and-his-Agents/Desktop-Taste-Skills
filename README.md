@@ -35,8 +35,11 @@ The intended outcome is not simply “correct UI”. The intended outcome is des
 - `desktop-typography-density`: calibrates type hierarchy, spacing, text roles, tables, lists, and density levels.
 - `desktop-motion-interaction`: designs and reviews desktop motion, interaction states, feedback, undo/redo, and reduced-motion behavior.
 - `desktop-brand-system`: keeps product expression inside useful desktop UI rather than turning the app into marketing surface.
+- `desktop-audit`: audits existing desktop UI and produces diagnosis, preservation guidance, fixes, and implementation checks.
+- `desktop-redesign`: turns audit findings into implementable layout, component, state, interaction, and visual strategy.
+- `desktop-design-md`: creates or updates a desktop-focused `DESIGN.md` for user projects.
 
-Current routes cover audit, redesign, native feel, layout, typography, motion, brand, and `DESIGN.md`. Audit, redesign, and `DESIGN.md` output Skills are still planned follow-up work.
+Reusable templates live in `templates/` for desktop `DESIGN.md`, Desktop Read, critique, and anti-slop checks.
 
 ## What this is not for
 
@@ -63,6 +66,7 @@ The target capability map is maintained in [VISION.md](VISION.md).
 
    ```sh
    python3 scripts/validate_repo.py
+   python3 scripts/smoke_plugin_install.py
    ```
 
 If Codex cannot find the plugin, first confirm you installed the repository
@@ -76,6 +80,7 @@ versions, missing files, or manifest paths that point outside the repository.
    breaking-change notes.
 3. Refresh or reinstall the plugin in Codex from the same repository root.
 4. Re-run `python3 scripts/validate_repo.py`.
+5. Re-run `python3 scripts/smoke_plugin_install.py`.
 
 Each published Skill lives in `skills/<name>/SKILL.md`, and its frontmatter
 must include `name`, `description`, and `version`.
