@@ -1,7 +1,7 @@
 ---
 name: desktop-art-direction
 description: 为 macOS 和 Windows 桌面应用提出、比较并推荐明确的 Art Direction，避免平均化模板 UI。
-version: 0.1.0
+version: 0.2.0
 ---
 
 # Desktop Art Direction
@@ -40,6 +40,8 @@ version: 0.1.0
 - `density` 与 `primary_interaction`
 - `design_thesis` 与 `anti_pattern`
 - 真实窗口结构：侧边栏、工具栏、表格、Inspector、画布、命令面板、状态栏等
+
+如果用户只有文字需求，没有截图、运行中窗口、现有 UI 代码、`DESIGN.md` 或明确平台参考，本 Skill 可以作为后续实现的视觉/证据目标来源。输出后必须推荐一个方向，或等待用户选择方向；不要从未确认的方向直接进入大范围实现。
 
 ## 分析方法
 

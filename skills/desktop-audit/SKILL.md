@@ -1,7 +1,7 @@
 ---
 name: desktop-audit
 description: 审计已有 macOS / Windows 桌面应用 UI，诊断网页壳、demo 感、不专业、密度不对、平台感不足、真实数据下失效等问题，并给出保留项、禁止改动项、最小可行改法、高水平改法和实现后检查项。用于用户要求 audit、review、critique、inspect、检查、评估已有桌面界面、截图、原型或实现时。
-version: 0.1.0
+version: 0.2.0
 ---
 
 # Desktop Audit
@@ -45,6 +45,14 @@ version: 0.1.0
 - `anti_pattern`
 
 同时说明证据来源：截图、视频、可运行界面、代码、原型或用户描述。证据不足时仍可审计，但必须标注 `assumption`，不要把猜测写成事实。
+
+## 证据规则
+
+- 只使用当前任务提供或本轮实际读取/捕获的证据；不要用记忆、旧截图或未打开的文件当事实。
+- 每个 P0 / P1 / P2 finding 必须绑定 evidence、impact 和 minimum fix。
+- 截图只能证明可见布局和状态；不能单独证明键盘路径、无障碍、真实数据承载或动态行为。无法验证时写入 `limits`。
+- 代码路径只能证明实现结构；不能替代运行截图或真实交互证据。需要运行证据时写入 `needed_evidence`。
+- 用户描述可以作为输入，但与截图、runtime 或代码冲突时，先标注冲突，不把描述升级成事实。
 
 ## 分析方法
 
@@ -147,13 +155,18 @@ Desktop Audit:
   - main_risks: <引用 Desktop Read>
 - evidence:
   - <截图/视频/runtime/code/prototype/user description + 范围>
+- limits:
+  - <截图、代码或描述无法证明的交互、可访问性、真实数据或运行状态>
 - verdict: <一句话说明当前 UI 最大问题和优先修正方向>
 
 - keep:
   - <应该保留的工作流、结构、平台习惯、状态、密度或品牌线索>
 
 - problem_diagnosis:
-  - [P0/P1/P2] <web_shell/demo_feel/unprofessional/density_mismatch/platform_gap/real_data_failure/state_gap>: <症状> -> <为什么影响桌面工作流>
+  - [P0/P1/P2] <web_shell/demo_feel/unprofessional/density_mismatch/platform_gap/real_data_failure/state_gap>: <症状>
+    evidence: <具体截图/步骤/代码路径/描述>
+    impact: <为什么影响桌面工作流>
+    minimum_fix: <最小可行修正>
 
 - change:
   - <应该改的窗口、布局、状态、文字、密度、平台或品牌问题>

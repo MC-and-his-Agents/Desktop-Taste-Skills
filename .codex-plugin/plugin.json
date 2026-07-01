@@ -1,6 +1,6 @@
 {
   "name": "desktop-taste",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Desktop UI/UX taste skills for coding Agents building macOS and Windows applications.",
   "skills": "./skills/",
   "author": {
@@ -18,7 +18,7 @@
   "interface": {
     "displayName": "Desktop Taste",
     "shortDescription": "Improve macOS and Windows app UI",
-    "longDescription": "Desktop Taste helps coding Agents recognize macOS and Windows desktop UI/UX tasks, run a design read before implementation, and route work toward better layout, typography, spacing, density, motion, native feel, and product-specific expression.",
+    "longDescription": "Desktop Taste helps coding Agents recognize macOS and Windows desktop UI/UX tasks, run a design read brief gate before implementation, bind work to desktop evidence, and route work toward better layout, typography, spacing, density, motion, native feel, product-specific expression, and post-implementation QA.",
     "developerName": "MC and his Agents",
     "category": "Creativity",
     "capabilities": [
@@ -27,8 +27,9 @@
     ],
     "defaultPrompt": [
       "Decide whether this UI task belongs to Desktop Taste",
-      "Run a Desktop Read before editing this desktop app UI",
-      "Route this desktop UI task to audit, redesign, native feel, layout, typography, motion, brand, or DESIGN.md"
+      "Run a Desktop Read brief gate before editing this desktop app UI",
+      "Bind desktop UI work to screenshots, runtime, code, DESIGN.md, references, or selected art direction",
+      "Route this desktop UI task to audit, redesign, native feel, layout, typography, motion, brand, QA, or DESIGN.md"
     ],
     "brandColor": "#4F7CAC"
   }

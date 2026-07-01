@@ -1,7 +1,7 @@
 ---
 name: desktop-redesign
 description: 将 macOS 和 Windows 桌面应用审计诊断转成可实现的 redesign 方案。
-version: 0.1.0
+version: 0.2.0
 ---
 
 # Desktop Redesign
@@ -38,6 +38,8 @@ version: 0.1.0
 - 现有界面证据：截图、运行中的窗口、代码中的 UI 结构、用户描述或可复现路径。
 - `desktop-audit` 结论：如果已有审计，消费其 findings、severity、证据和建议；如果没有，先做最小诊断，不假装已有审计。
 - 约束：必须保留的功能、数据、命令、快捷键、平台、技术栈和不能触碰的文件。
+
+若缺少任何桌面视觉/证据目标，不要直接给大范围实现方案；先回到 `desktop-design-read` 补 brief gate，或用 `desktop-art-direction` 产出并确认一个方向。小型机械修正可用当前代码和用户描述作为证据目标。
 
 引用规则：
 
@@ -141,6 +143,7 @@ Desktop Redesign:
   - primary_interaction: <Desktop Read primary_interaction>
   - main_risks: <Desktop Read risks>
 - audit_source: <desktop-audit / screenshots / code read / assumption>
+- evidence_target: <screenshot/runtime/code/DESIGN.md/reference/art direction/user description>
 - redesign_thesis: <一句话说明新界面应成为哪类桌面工具>
 - preserve:
   - <必须保留的产品语义、功能、命令、数据或用户路径>

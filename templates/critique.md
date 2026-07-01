@@ -6,6 +6,7 @@
 
 - 发现优先：先列影响用户或实现的具体问题；没有问题时明确写 `无阻断发现`。
 - 每条发现必须包含证据、影响和最小修正。
+- 证据必须来自当前截图、运行界面、代码路径、PR、DESIGN.md 或用户描述；无法从证据证明的内容写入 limits。
 - 只评审桌面 UI/UX：窗口结构、平台感、布局、排版密度、交互状态、真实数据承载和长期使用。
 - 不把 Web landing、Mobile、品牌官网、发布工程、打包签名或后端架构混入评审。
 - 严重度保持稳定：`P0` 阻断使用，`P1` 明显破坏核心工作流，`P2` 降低质量或可维护性，`P3` 小修小补。
@@ -18,7 +19,10 @@ Desktop Critique:
 - scope: <本次评审覆盖的窗口、流程或组件>
 - platform: <macOS / Windows / cross-platform>
 - desktop_read: <引用 Desktop Read 的关键判断；没有则写 assumptions>
+- evidence_target: <screenshot / runtime / code path / PR / DESIGN.md / user description>
 - verdict: <pass / needs work / fail>
+- limits:
+  - <当前证据无法证明的交互、可访问性、真实数据或运行状态>
 
 Findings:
 1. [P1] <area>: <问题一句话>
