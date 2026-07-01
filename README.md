@@ -35,6 +35,39 @@ It may include lightweight implementation guardrails when they help produce feas
 
 The target capability map is maintained in [VISION.md](VISION.md).
 
+## Installation
+
+1. Clone this repository:
+
+   ```sh
+   git clone https://github.com/MC-and-his-Agents/Desktop-Taste-Skills.git
+   ```
+
+2. Install the repository root with your Codex plugin installer. The plugin
+   manifest must stay at `.codex-plugin/plugin.json`.
+3. Confirm Codex lists the plugin as `Desktop Taste`.
+4. Run the local validator:
+
+   ```sh
+   python3 scripts/validate_repo.py
+   ```
+
+If Codex cannot find the plugin, first confirm you installed the repository
+root, not `.codex-plugin/`, and then run the validator to catch invalid
+versions, missing files, or manifest paths that point outside the repository.
+
+## Upgrade
+
+1. Pull the latest repository changes with `git pull --ff-only`.
+2. Read [CHANGELOG.md](CHANGELOG.md) for install, upgrade, migration, and
+   breaking-change notes.
+3. Refresh or reinstall the plugin in Codex from the same repository root.
+4. Re-run `python3 scripts/validate_repo.py`.
+
+This repository currently allows an empty `skills/` directory or no `skills/`
+directory. Once a Skill is published, its `skills/<name>/SKILL.md` frontmatter
+must include `name`, `description`, and `version`.
+
 ## Platform handling
 
 Desktop Taste Skills targets macOS and Windows.
@@ -50,6 +83,7 @@ The Agent should:
 ## Versioning
 
 The plugin and each published Skill are versioned separately. See [VERSIONING.md](VERSIONING.md).
+Release-visible changes are tracked in [CHANGELOG.md](CHANGELOG.md).
 
 ## Influences
 
