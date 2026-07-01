@@ -15,6 +15,20 @@ SEMVER_RE = re.compile(
     r"(?:-[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?"
     r"(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?$"
 )
+MANIFEST_PATH_KEYS = {
+    "file",
+    "files",
+    "path",
+    "paths",
+    "resource",
+    "resources",
+    "skill",
+    "skills",
+    "skillPath",
+    "skillPaths",
+    "skill_path",
+    "skill_paths",
+}
 
 
 def fail(message: str) -> None:
@@ -52,6 +66,7 @@ def validate_plugin_json(payload: dict) -> None:
     for value in walk_strings(payload):
         if value.startswith("/") or re.match(r"^[A-Za-z]:[\\/]", value):
             fail(f"plugin.json contains absolute path: {value}")
+    validate_manifest_paths(payload)
 
 
 def walk_strings(value: object):
@@ -63,6 +78,31 @@ def walk_strings(value: object):
     elif isinstance(value, dict):
         for item in value.values():
             yield from walk_strings(item)
+
+
+def validate_manifest_paths(value: object, is_path_field: bool = False, label: str = "plugin.json") -> None:
+    if isinstance(value, dict):
+        for key, item in value.items():
+            validate_manifest_paths(item, key in MANIFEST_PATH_KEYS, f"{label}.{key}")
+    elif isinstance(value, list):
+        for index, item in enumerate(value):
+            validate_manifest_paths(item, is_path_field, f"{label}[{index}]")
+    elif is_path_field and isinstance(value, str):
+        validate_manifest_path(value, label)
+
+
+def validate_manifest_path(value: str, label: str) -> None:
+    if not value:
+        fail(f"{label} must not be empty")
+    if "://" in value:
+        fail(f"{label} must be a repository-relative path: {value}")
+    candidate = (ROOT / value).resolve()
+    try:
+        candidate.relative_to(ROOT.resolve())
+    except ValueError:
+        fail(f"{label} points outside repository: {value}")
+    if not candidate.exists():
+        fail(f"{label} points to missing path: {value}")
 
 
 def parse_frontmatter(path: Path) -> dict[str, str]:

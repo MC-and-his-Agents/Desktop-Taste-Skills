@@ -35,6 +35,33 @@ Desktop Taste Skills 不是通用工程手册，不是移动或 Web 设计工具
 
 目标状态能力清单维护在 [VISION.md](VISION.md)。
 
+## 安装
+
+1. 克隆本仓库：
+
+   ```sh
+   git clone https://github.com/MC-and-his-Agents/Desktop-Taste-Skills.git
+   ```
+
+2. 在 Codex 插件安装入口中选择本仓库根目录。插件 manifest 必须保留在 `.codex-plugin/plugin.json`。
+3. 确认 Codex 中显示插件名 `Desktop Taste`。
+4. 运行本地校验：
+
+   ```sh
+   python3 scripts/validate_repo.py
+   ```
+
+如果 Codex 找不到插件，先确认安装的是仓库根目录，而不是 `.codex-plugin/` 子目录；再运行校验脚本，排查无效版本、缺失文件或指向仓库外部的 manifest 路径。
+
+## 升级
+
+1. 使用 `git pull --ff-only` 拉取最新仓库变更。
+2. 阅读 [CHANGELOG.md](CHANGELOG.md)，确认安装、升级、迁移和破坏性变更说明。
+3. 在 Codex 中从同一个仓库根目录刷新或重新安装插件。
+4. 重新运行 `python3 scripts/validate_repo.py`。
+
+当前仓库允许没有 `skills/` 目录，或 `skills/` 目录为空。一旦发布 Skill，其 `skills/<name>/SKILL.md` frontmatter 必须包含 `name`、`description` 和 `version`。
+
 ## 平台处理
 
 Desktop Taste Skills 面向 macOS 与 Windows。
@@ -50,6 +77,7 @@ Agent 应：
 ## 版本管理
 
 插件和每个已发布 Skill 分别管理版本。见 [VERSIONING.md](VERSIONING.md)。
+对发布可见的变更记录在 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 参考来源
 
