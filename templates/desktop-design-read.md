@@ -1,6 +1,6 @@
 # 桌面设计前置判断模板
 
-用于在实现、重设计、审计或生成 `DESIGN.md` 前固定桌面设计判断。它是后续 Skill 的输入，不是视觉研究材料。
+用于在实现、重设计、审计、生成设计稿或生成 `DESIGN.md` 前固定桌面设计判断。它是后续 Skill 的输入，不是视觉研究材料。
 
 ## 使用规则
 
@@ -8,6 +8,7 @@
 - 信息不足且会改变设计判断时，只问缺口；信息足够时直接回放 Desktop Read。
 - 字段名保持稳定，方便后续 Skill 直接引用。
 - 大范围实现或重设计前必须绑定桌面视觉/证据目标；小型机械修正可以用当前代码和用户描述作为目标。
+- 用户要求 visual draft / 设计稿时，必须写清 `target_surface`、`draft_state` 和 `draft_dimensions`。
 - 只覆盖 macOS / Windows 桌面 UI；Web、Mobile、品牌官网和发布工程不进入本模板。
 
 ## 输出格式
@@ -21,13 +22,16 @@ Desktop Read:
 - session_context: <短任务 / 长时间工作 / 频繁切换 / 后台监控 / 批量处理 / 深度创作>
 - density: <calm / standard / dense / control-room>
 - primary_interaction: <mouse-first / keyboard-first / command-first / drag-and-drop / multi-window / multi-pane>
-- evidence_target: <screenshot / runtime / code / DESIGN.md / reference / art direction / user description / missing>
+- evidence_target: <screenshot / runtime / code / DESIGN.md / reference / art direction / draft-ready brief / visual draft / user description / missing>
+- target_surface: <primary window / secondary window / settings window / utility window / command palette / inspector or side panel / dialog sheet popover / menu bar or tray popover / workbench canvas / table list view / specific window / not needed>
+- draft_state: <not needed / needed / exploratory / draft-ready / selected / blocked missing context>
+- draft_dimensions: <width x height / window ratio / preset / not needed>
 - design_thesis: <一句话说明界面应该给人的工作感受>
 - anti_pattern: <一句话说明明确不要像什么>
 - main_risks:
   - <web shell / dashboard 化 / 过度留白 / 平台感缺失 / 状态缺失 / 真实数据下失效>
 - next_routes:
-  - <audit / redesign / native feel / layout / typography / motion / brand / QA / DESIGN.md>
+  - <audit / redesign / native feel / layout / typography / motion / brand / art direction / visual draft / QA / DESIGN.md>
 - assumptions:
   - <only if needed>
 ```
@@ -40,7 +44,10 @@ Desktop Read:
 - `session_context`: 决定密度、状态反馈和窗口持久化。
 - `density`: 不因为“高级感”默认 `calm`；开发者工具、数据工具、控制台常用 `dense` 或 `control-room`。
 - `primary_interaction`: 写主路径；可以组合，但不要把所有交互都列上。
-- `evidence_target`: 写后续实现、审计或 QA 可以引用的桌面视觉/证据来源；缺失时写 `missing`，并把下一步指向补证据或 art direction。
+- `evidence_target`: 写后续实现、审计、visual draft 或 QA 可以引用的桌面视觉/证据来源；缺失时写 `missing`，并把下一步指向补证据、art direction 或 visual draft。
+- `target_surface`: 写目标桌面表面；没有设计稿需求时写 `not needed`，不要把网页 section 当成 surface。
+- `draft_state`: 写设计稿状态；没有设计稿需求时写 `not needed`，缺少关键上下文时写 `blocked missing context`。
+- `draft_dimensions`: 写设计稿尺寸、窗口比例或预设；没有设计稿需求时写 `not needed`。
 - `design_thesis`: 必须具体到产品工作流，避免“干净现代、简洁高级”。
 - `anti_pattern`: 明确拒绝 Web hero、CTA、landing sections、marketing card grid、SaaS dashboard 或网页壳。
 - `main_risks`: 只列会影响实现或评审的风险。
@@ -59,6 +66,9 @@ Desktop Read:
 - density: dense
 - primary_interaction: keyboard-first, multi-pane
 - evidence_target: code + user description
+- target_surface: primary window
+- draft_state: not needed
+- draft_dimensions: not needed
 - design_thesis: 界面应像稳定的本地开发工作台，优先让命令、日志和当前对象保持可见。
 - anti_pattern: 不要像 Web SaaS dashboard、landing hero 或卡片墙。
 - main_risks:

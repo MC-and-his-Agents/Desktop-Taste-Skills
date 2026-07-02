@@ -15,7 +15,8 @@ Use Desktop Taste Skills when a coding Agent needs to design, implement, redesig
 The suite helps the Agent reason about:
 
 - desktop brief gates before large UI changes
-- visual or evidence targets such as screenshots, running windows, code paths, `DESIGN.md`, references, or selected art direction
+- visual or evidence targets such as screenshots, running windows, code paths, `DESIGN.md`, references, selected art direction, or selected visual drafts
+- ImageGen-based desktop visual drafts when a missing visual target needs three reviewable macOS / Windows window concepts
 - app type and workflow context
 - macOS, Windows, or cross-platform expectations
 - macOS Native Depth: Liquid Glass, SwiftUI scene/window roles, native toolbar/sidebar/inspector patterns, and narrow AppKit escape hatches
@@ -33,6 +34,7 @@ The intended outcome is not simply “correct UI”. The intended outcome is des
 - `desktop-taste`: entry Skill for desktop UI/UX task recognition, boundary checks, and route selection.
 - `desktop-design-read`: pre-implementation desktop brief gate covering platform, app type, user, session context, density, interaction model, evidence target, risks, and next routes.
 - `desktop-art-direction`: produces 2-3 concrete desktop art directions with thesis, fit, anti-patterns, and signature moments.
+- `desktop-visual-draft`: turns Desktop Read and art direction into three independent ImageGen desktop window drafts, with selection handoff and non-pixel implementation boundaries.
 - `desktop-native-feel`: checks whether macOS or Windows UI feels like real desktop software instead of a web shell, including macOS Liquid Glass and AppKit boundary guidance when relevant.
 - `desktop-layout-composition`: chooses desktop window layouts, zones, scene/window roles, and component tradeoffs for real workflows and data.
 - `desktop-typography-density`: calibrates type hierarchy, spacing, text roles, tables, lists, and density levels.
@@ -43,7 +45,7 @@ The intended outcome is not simply “correct UI”. The intended outcome is des
 - `desktop-qa`: checks implemented desktop UI before handoff against Desktop Read, evidence targets, native feel, layout, density, states, keyboard path, real data, themes, and macOS Native Depth when applicable.
 - `desktop-design-md`: creates or updates a desktop-focused `DESIGN.md` for user projects.
 
-Reusable templates live in `templates/` for desktop `DESIGN.md`, Desktop Read, critique, and anti-slop checks.
+Reusable templates live in `templates/` for desktop `DESIGN.md`, Desktop Read, visual draft, critique, and anti-slop checks.
 
 ## What this is not for
 
